@@ -30,6 +30,122 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
+MONTH_ABBREVIATIONS = {
+    '1': 'Jan.',
+    '2': 'Feb.',
+    '3': 'Mar.',
+    '4': 'Apr.',
+    '5': 'May',
+    '6': 'Jun.',
+    '7': 'Jul.',
+    '8': 'Aug.',
+    '9': 'Sept.',
+    '10': 'Oct.',
+    '11': 'Nov.',
+    '12': 'Dec.',
+    'jan': 'Jan.',
+    'feb': 'Feb.',
+    'mar': 'Mar.',
+    'apr': 'Apr.',
+    'may': 'May',
+    'jun': 'Jun.',
+    'jul': 'Jul.',
+    'aug': 'Aug.',
+    'sep': 'Sept.',
+    'sept': 'Sept.',
+    'oct': 'Oct.',
+    'nov': 'Nov.',
+    'dec': 'Dec.',
+}
+
+MONTH_NUMBERS = {
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+    '10': 10,
+    '11': 11,
+    '12': 12,
+    'jan': 1,
+    'january': 1,
+    'feb': 2,
+    'february': 2,
+    'mar': 3,
+    'march': 3,
+    'apr': 4,
+    'april': 4,
+    'may': 5,
+    'jun': 6,
+    'june': 6,
+    'jul': 7,
+    'july': 7,
+    'aug': 8,
+    'august': 8,
+    'sep': 9,
+    'sept': 9,
+    'september': 9,
+    'oct': 10,
+    'october': 10,
+    'nov': 11,
+    'november': 11,
+    'dec': 12,
+    'december': 12,
+}
+
+
+def safe_year(year_value: str) -> int:
+    digits = re.sub(r'\D', '', year_value or '')
+    return int(digits) if digits else 0
+
+
+def format_authors(author_field: str) -> str:
+    if not author_field:
+        return ''
+    parts = [part.strip() for part in author_field.split(' and ') if part.strip()]
+    if len(parts) <= 1:
+        return parts[0] if parts else ''
+    if len(parts) == 2:
+        return f'{parts[0]} and {parts[1]}'
+    return f"{', '.join(parts[:-1])}, and {parts[-1]}"
+
+
+def format_month(month_value: str) -> str:
+    if not month_value:
+        return ''
+    normalized = month_value.strip().lower()
+    if normalized.isdigit():
+        normalized = str(int(normalized))
+    return MONTH_ABBREVIATIONS.get(normalized, '')
+
+
+def format_date(entry: dict) -> str:
+    year = (entry.get('year') or '').strip()
+    month = format_month(entry.get('month') or '')
+    if month and year:
+        return f'{month} {year}'
+    return year
+
+
+def month_number(month_value: str) -> int:
+    if not month_value:
+        return 0
+    normalized = month_value.strip().lower()
+    if normalized.isdigit():
+        normalized = str(int(normalized))
+    return MONTH_NUMBERS.get(normalized, 0)
+
+
+def parse_keywords(entry: dict) -> list[str]:
+    raw = entry.get('keywords') or entry.get('keyword') or ''
+    parts = re.split(r'[;,]', raw)
+    return [part.strip().lower() for part in parts if part.strip()]
+
+
 def parse_bibtex(bib_path: Path):
     """Parse a BibTeX file into a list of dictionaries.
 
@@ -99,70 +215,100 @@ def parse_bibtex(bib_path: Path):
         entries.append(entry)
     return entries
 
-def build_publication_groups(entries):
-    """Group publications by category and year."""
-    category_map = {
-        'article': 'Journal Articles',
-        'inproceedings': 'Conference Papers',
-        'conference': 'Conference Papers',
-        'incollection': 'Book Chapters',
-        'inbook': 'Book Chapters',
-        'book': 'Books',
-        'techreport': 'Technical Reports',
-        'phdthesis': 'Theses',
-        'mastersthesis': 'Theses',
-        'misc': 'Other',
-    }
-    groups = {}
+def build_publication_list(entries):
+    """Build a single, chronological list of publications."""
+    items = []
     for entry in entries:
+        keywords = parse_keywords(entry)
+        if 'edited' in keywords:
+            continue
+        if 'ritools' in entry.get('title', '').lower():
+            continue
+        is_allowed = (
+            'peer_reviewed' in keywords
+            or 'technical_report' in keywords
+            or 'tecnical_report' in keywords
+            or 'open_source' in keywords
+            or 'essay' in keywords
+        )
+        if not is_allowed:
+            continue
         etype = entry.get('type', 'misc')
         if etype == 'unpublished':
             continue  # skip unpublished here; they go into projects
-        group_name = category_map.get(etype, 'Other')
-        groups.setdefault(group_name, []).append(entry)
+        items.append(entry)
 
-    group_list = []
-    for name, items in groups.items():
-        # helper to clean up the year string
-        def safe_year(year_value: str) -> int:
-            import re
-            digits = re.sub(r'\D', '', year_value or '')
-            return int(digits) if digits else 0
+    items_sorted = sorted(
+        items,
+        key=lambda x: (
+            -safe_year(x.get('year', '')),
+            -month_number(x.get('month', '')),
+            x.get('title', ''),
+        ),
+    )
 
-        # sort by year descending then by title
-        items_sorted = sorted(
-            items,
-            key=lambda x: (-safe_year(x.get('year', '')), x.get('title', '')),
+    display_items = []
+    for item in items_sorted:
+        authors = format_authors(item.get('author', ''))
+        title = item.get('title', '')
+        date = format_date(item)
+        venue = (
+            item.get('journal')
+            or item.get('booktitle')
+            or item.get('howpublished')
+            or item.get('organization')
+            or item.get('institution')
+            or ''
         )
+        url = item.get('url')
+        volume = item.get('volume', '')
+        number = item.get('number', '')
+        pages = item.get('pages', '')
+        editor = item.get('editor', '')
+        publisher = item.get('publisher', '')
+        address = item.get('address', '')
+        note = item.get('note') or item.get('annote') or ''
+        etype = item.get('type', '')
+        display_items.append({
+            'authors': authors,
+            'title': title,
+            'date': date,
+            'venue': venue,
+            'volume': volume,
+            'number': number,
+            'pages': pages,
+            'editor': editor,
+            'publisher': publisher,
+            'address': address,
+            'note': note,
+            'type': etype,
+            'url': url,
+        })
+    return display_items
 
-        display_items = []
-        for item in items_sorted:
-            authors = item.get('author', '').replace(' and ', ', ')
-            title = item.get('title', '')
-            year = item.get('year', '')
-            venue = (
-                item.get('journal')
-                or item.get('booktitle')
-                or item.get('publisher')
-                or item.get('howpublished')
-                or ''
-            )
-            url = item.get('url')
-            display_items.append({
-                'authors': authors,
-                'title': title,
-                'year': year,
-                'venue': venue,
-                'url': url,
-            })
-        group_list.append({'name': name, 'entries': display_items})
 
-    order = [
-        'Journal Articles', 'Conference Papers', 'Book Chapters', 'Books',
-        'Technical Reports', 'Theses', 'Other'
-    ]
-    group_list.sort(key=lambda g: order.index(g['name']) if g['name'] in order else len(order))
-    return group_list
+def build_current_research(entries):
+    """Collect under-review submissions for the Research & Projects page."""
+    current = []
+    for entry in entries:
+        keywords = parse_keywords(entry)
+        if 'under_review' not in keywords:
+            continue
+        title = entry.get('title', '')
+        status = entry.get('journal') or entry.get('note') or 'Under review'
+        url = entry.get('url')
+        year = entry.get('year', '')
+        current.append({
+            'title': title,
+            'status': status,
+            'url': url,
+            'year': year,
+        })
+    current_sorted = sorted(
+        current,
+        key=lambda x: (-safe_year(x.get('year', '')), x.get('title', '')),
+    )
+    return current_sorted
 
 def load_projects(projects_path: Path):
     """Load projects YAML and return structured lists for templates."""
@@ -185,7 +331,14 @@ def load_bio(bio_path: Path):
     text = bio_path.read_text(encoding='utf-8').strip()
     # simple conversion: paragraphs separated by blank lines become <p>
     paragraphs = [para.strip() for para in text.split('\n\n') if para.strip()]
-    html_paragraphs = ['<p>' + para.replace('\n', ' ') + '</p>' for para in paragraphs]
+    def render_markdown_links(value: str) -> str:
+        return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', value)
+
+    html_paragraphs = []
+    for para in paragraphs:
+        normalized = para.replace('\n', ' ')
+        normalized = render_markdown_links(normalized)
+        html_paragraphs.append('<p>' + normalized + '</p>')
     return '\n'.join(html_paragraphs)
 
 
@@ -202,7 +355,8 @@ def generate_site():
     # load BibTeX
     bib_path = data_dir / 'vita.bib'
     entries = parse_bibtex(bib_path) if bib_path.exists() else []
-    pub_groups = build_publication_groups(entries)
+    pub_entries = build_publication_list(entries)
+    current_research = build_current_research(entries)
     # load projects and courses
     current_projects, backburner_projects, software_projects = load_projects(data_dir / 'projects.yaml')
     courses = load_courses(data_dir / 'teaching.yaml')
@@ -217,7 +371,7 @@ def generate_site():
         'site_name': site_name,
         'author_name': author_name,
         'current_year': current_year,
-        'static_path': '/static',
+        'static_path': 'static',
     }
     # Generate index
     index_template = env.get_template('index.html')
@@ -225,7 +379,7 @@ def generate_site():
     (base_dir / 'index.html').write_text(index_html, encoding='utf-8')
     # Generate publications
     pub_template = env.get_template('publications.html')
-    pub_html = pub_template.render(**common, title='Publications', pub_groups=pub_groups)
+    pub_html = pub_template.render(**common, title='Publications', pub_entries=pub_entries)
     (base_dir / 'publications.html').write_text(pub_html, encoding='utf-8')
     # Generate projects
     projects_template = env.get_template('projects.html')
@@ -235,6 +389,7 @@ def generate_site():
         current_projects=current_projects,
         backburner_projects=backburner_projects,
         software_projects=software_projects,
+        current_research=current_research,
     )
     (base_dir / 'projects.html').write_text(projects_html, encoding='utf-8')
     # Generate teaching

@@ -3,14 +3,30 @@
 {% block content %}
 <section class="teaching">
   <h1>Teaching</h1>
-  {% for course in courses %}
+  {% for term in courses %}
   <div class="course">
-    <h2>{{ course.name }}</h2>
-    <p><strong>{{ course.term }}</strong></p>
-    <p>{{ course.description }}</p>
-    {% if course.syllabus_url %}
-    <p><a href="{{ course.syllabus_url }}">Syllabus (PDF)</a></p>
-    {% endif %}
+    <h2>{{ term.term }}</h2>
+    <ul class="course-list">
+      {% for course in term.courses %}
+      <li class="course-item">
+        {% if course.url %}
+        <a href="{{ course.url }}">{{ course.title }}</a>
+        {% else %}
+        <span class="course-title">{{ course.title }}</span>
+        {% endif %}
+        {% if course.description %}
+        <span class="course-description"> - {{ course.description }}</span>
+        {% endif %}
+        {% if course.materials %}
+        <div class="course-materials">
+          {% for material in course.materials %}
+          <a href="{{ material.url }}">{{ material.label }}</a>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
   </div>
   {% endfor %}
 </section>

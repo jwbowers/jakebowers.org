@@ -24,7 +24,3 @@ software:
     description: |
       The R package **RItools** implements randomization inference methods for evaluating treatment effects in experiments, including block randomized designs and matched pairs.  It facilitates flexible analysis without reliance on large‑sample asymptotics.
     url: https://cran.r-project.org/package=RItools
-  - title: CausalGraphicalModel
-    description: |
-      Python package for representing and analyzing causal graphical models.  Provides utilities for defining directed acyclic graphs, enumerating adjustment sets and computing the implied conditional independencies.
-    url: https://github.com/jwbowers/causalgraphicalmodel

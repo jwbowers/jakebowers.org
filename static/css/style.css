@@ -79,9 +79,22 @@ section + section {
   padding-top: 2rem;
 }
 
+.site-attribution {
+  font-size: 0.95rem;
+  color: #666666;
+}
+
+.site-attribution p {
+  margin: 0;
+}
+
 /* Hero section */
 .hero {
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .hero h1 {
@@ -95,6 +108,42 @@ section + section {
   font-size: 1.05rem;
   max-width: 65ch;
   color: #555555;
+}
+
+.affiliations-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.affiliations-list li {
+  margin-bottom: 0.5rem;
+}
+
+.hero-content {
+  flex: 1 1 320px;
+}
+
+.hero-media {
+  flex: 0 0 220px;
+}
+
+.hero-photo {
+  width: 100%;
+  max-width: 240px;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    gap: 1.25rem;
+  }
+
+  .hero-media {
+    flex-basis: 100%;
+  }
 }
 
 /* Quick links
@@ -136,11 +185,25 @@ section + section {
 }
 
 .publication .pub-title {
-  font-style: italic;
+  font-style: normal;
 }
 
 .publication .pub-authors {
   font-weight: 600;
+}
+
+.publication .pub-date,
+.publication .pub-venue,
+.publication .pub-editor,
+.publication .pub-publisher,
+.publication .pub-note {
+  color: #555555;
+}
+
+.publication .pub-link {
+  margin-left: 0.4rem;
+  font-weight: 600;
+  color: #00538a;
 }
 
 /* Projects */
@@ -170,6 +233,40 @@ section + section {
 
 .course h2 {
   margin-bottom: 0.25rem;
+}
+
+.course-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.course-item {
+  margin-bottom: 0.75rem;
+}
+
+.course-item a {
+  font-weight: 600;
+  color: #00538a;
+}
+
+.course-title {
+  font-weight: 600;
+}
+
+.course-description {
+  color: #555555;
+}
+
+.course-materials {
+  margin-top: 0.2rem;
+  color: #555555;
+  font-size: 0.95rem;
+}
+
+.course-materials a {
+  font-weight: 600;
+  color: #00538a;
 }
 
 /* Footer */
