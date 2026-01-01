@@ -3,6 +3,20 @@
 {% block content %}
 <section class="projects">
   <h1>Research &amp; Projects</h1>
+  {% if current_research %}
+  <h2>Current Research</h2>
+  <ul class="project-list">
+    {% for item in current_research %}
+    <li class="project">
+      <strong>{{ item.title }}</strong>
+      {% if item.url %}- <a href="{{ item.url }}" class="project-link">[link]</a>{% endif %}
+      {% if item.status %}
+      <p>{{ item.status }}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
   {% if current_projects %}
   <h2>Current Projects</h2>
   <ul class="project-list">

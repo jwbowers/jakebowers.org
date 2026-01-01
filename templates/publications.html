@@ -2,20 +2,44 @@
 
 {% block content %}
 <section class="publications">
-  <h1>Publications</h1>
-  {% for group in pub_groups %}
-  <h2>{{ group.name }}</h2>
+  <h1>Articles, Chapters, Reports</h1>
   <ul class="pub-list">
-    {% for pub in group.entries %}
+    {% for pub in pub_entries %}
     <li class="publication">
       <span class="pub-authors">{{ pub.authors }}</span>.
-      <span class="pub-title">{{ pub.title }}</span>.
-      {% if pub.venue %}<span class="pub-venue"><em>{{ pub.venue }}</em></span>.{% endif %}
-      <span class="pub-year">{{ pub.year }}</span>
-      {% if pub.url %}- <a href="{{ pub.url }}">[PDF]</a>{% endif %}
+      {% if pub.date %}<span class="pub-date">{{ pub.date }}</span>.{% endif %}
+      <span class="pub-title">"{{ pub.title }}"</span>.
+      {% if pub.venue %}
+      <span class="pub-venue">
+        In: <em>{{ pub.venue }}</em>
+        {% if pub.volume %}
+        {{ pub.volume }}{% if pub.number %}.{{ pub.number }}{% endif %}
+        {% elif pub.number %}
+        {{ pub.number }}
+        {% endif %}
+        {% if pub.pages %}, pp. {{ pub.pages }}{% endif %}
+      </span>.
+      {% endif %}
+      {% if pub.editor %}
+      <span class="pub-editor">Ed. by {{ pub.editor }}</span>.
+      {% endif %}
+      {% if pub.publisher or pub.address %}
+      <span class="pub-publisher">
+        {% if pub.address and pub.publisher %}
+        {{ pub.address }}: {{ pub.publisher }}
+        {% elif pub.publisher %}
+        {{ pub.publisher }}
+        {% else %}
+        {{ pub.address }}
+        {% endif %}
+      </span>.
+      {% endif %}
+      {% if pub.note %}
+      <span class="pub-note">{{ pub.note }}</span>.
+      {% endif %}
+      {% if pub.url %}<a href="{{ pub.url }}" class="pub-link">[link]</a>{% endif %}
     </li>
     {% endfor %}
   </ul>
-  {% endfor %}
 </section>
 {% endblock %}
