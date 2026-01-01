@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title }}</title>
+    <!-- Import a modern sans‑serif font for a clean, accessible look -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ static_path }}/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="/" class="brand">{{ site_name }}</a>
+        <nav class="site-nav">
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/publications.html">Publications</a></li>
+            <li><a href="/projects.html">Research &amp; Projects</a></li>
+            <li><a href="/teaching.html">Teaching</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-content">
+      <div class="container">
+        {#
+          The content block is defined in child templates.  The `safe`
+          filter is not needed here because Jinja handles escaping.  If
+          a child template defines a `block content`, its contents will
+          appear here.
+        #}
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; {{ current_year }} {{ author_name }}. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+- name: Future Politics (PS300)
+  term: Fall 2023
+  description: |
+    An interdisciplinary seminar examining how speculative fiction can illuminate political theory, social change and the future of democracy.  Students read science fiction and pair it with scholarly work on institutions, power and inequality.
+  syllabus_url: https://static.jakebowers.org/PS300/future-politics-syllabus.pdf
+
+- name: Causal Inference
+  term: Fall 2023
+  description: |
+    A graduate‑level course on the design and analysis of randomized experiments and observational studies.  Topics include potential outcomes, matching, randomization inference and sensitivity analysis.
+  syllabus_url: https://static.jakebowers.org/causal-inference/causal-inference-syllabus.pdf
+
+- name: Statistical Adjustment and Inference for the Linear Model
+  term: Spring 2023
+  description: |
+    Second‑term statistics course for political science PhD students focusing on regression models, statistical adjustment and inference.  Emphasizes understanding assumptions, diagnostics and causal interpretation.
+  syllabus_url: https://static.jakebowers.org/PS531/linear-model-syllabus.pdf

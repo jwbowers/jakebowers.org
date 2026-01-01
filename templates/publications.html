@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section class="publications">
+  <h1>Publications</h1>
+  {% for group in pub_groups %}
+  <h2>{{ group.name }}</h2>
+  <ul class="pub-list">
+    {% for pub in group.entries %}
+    <li class="publication">
+      <span class="pub-authors">{{ pub.authors }}</span>.
+      <span class="pub-title">{{ pub.title }}</span>.
+      {% if pub.venue %}<span class="pub-venue"><em>{{ pub.venue }}</em></span>.{% endif %}
+      <span class="pub-year">{{ pub.year }}</span>
+      {% if pub.url %}- <a href="{{ pub.url }}">[PDF]</a>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</section>
+{% endblock %}
