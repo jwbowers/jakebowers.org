@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+# Give the GITHUB_TOKEN write access to the repository
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
       - name: Install dependencies
         run: pip install --upgrade jinja2 PyYAML
@@ -30,3 +34,4 @@ jobs:
           publish_branch: gh-pages
           user_name: Automated Deployment
           user_email: actions@users.noreply.github.com
+
