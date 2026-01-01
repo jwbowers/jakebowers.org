@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section class="projects">
+  <h1>Research &amp; Projects</h1>
+  {% if current_projects %}
+  <h2>Current Projects</h2>
+  <ul class="project-list">
+    {% for proj in current_projects %}
+    <li class="project">
+      <strong>{{ proj.title }}</strong>
+      {% if proj.url %}- <a href="{{ proj.url }}" class="project-link">[link]</a>{% endif %}
+      <p>{{ proj.description }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if backburner_projects %}
+  <h2>Backburner Projects</h2>
+  <ul class="project-list">
+    {% for proj in backburner_projects %}
+    <li class="project">
+      <strong>{{ proj.title }}</strong>
+      {% if proj.url %}- <a href="{{ proj.url }}" class="project-link">[link]</a>{% endif %}
+      <p>{{ proj.description }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if software_projects %}
+  <h2>Software</h2>
+  <ul class="project-list">
+    {% for proj in software_projects %}
+    <li class="project">
+      <strong>{{ proj.title }}</strong>
+      {% if proj.url %}- <a href="{{ proj.url }}" class="project-link">[code]</a>{% endif %}
+      <p>{{ proj.description }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+{% endblock %}

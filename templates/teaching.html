@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section class="teaching">
+  <h1>Teaching</h1>
+  {% for course in courses %}
+  <div class="course">
+    <h2>{{ course.name }}</h2>
+    <p><strong>{{ course.term }}</strong></p>
+    <p>{{ course.description }}</p>
+    {% if course.syllabus_url %}
+    <p><a href="{{ course.syllabus_url }}">Syllabus (PDF)</a></p>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}

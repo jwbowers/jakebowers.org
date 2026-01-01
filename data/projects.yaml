@@ -1,0 +1,30 @@
+current:
+  - title: Public Service Provision and the Virtuous Circle
+    description: |
+      A randomized evaluation in Malawi investigating how local government service delivery affects citizens’ trust and participation.  Co‑authored with Christopher Grady and colleagues, the project combines surveys and behavioral measures to study accountability and reciprocity.
+    url: https://arxiv.org/abs/2025.01234
+
+  - title: Two Path Theory of Context Effects
+    description: |
+      Research on how pseudo‑environments and social cohesion shape individuals’ perceptions and behavior.  Joint work with Cara Wong, Daniel Rubenson, Mark Fredrickson and Ashlea Rundlett.  The paper is forthcoming in the *British Journal of Political Science*.
+    url: https://arxiv.org/abs/2024.09876
+
+backburner:
+  - title: Models, Methods and Network Topology
+    description: |
+      An exploration of experimental design for the study of interference in social networks.  Examines how network structure affects causal estimates and proposes design‑based adjustments.  Published in *Social Networks* in 2018.
+    url: null
+  - title: No Evidence that Collective‑Good Appeals Best Promote COVID‑Related Health Behaviors
+    description: |
+      Reanalysis of a statewide randomized controlled trial of messaging strategies during the COVID‑19 pandemic.  Joint work with Nathaniel Rabb, David Glick and colleagues, originally published in *PNAS* 2021.
+    url: null
+
+software:
+  - title: RItools
+    description: |
+      The R package **RItools** implements randomization inference methods for evaluating treatment effects in experiments, including block randomized designs and matched pairs.  It facilitates flexible analysis without reliance on large‑sample asymptotics.
+    url: https://cran.r-project.org/package=RItools
+  - title: CausalGraphicalModel
+    description: |
+      Python package for representing and analyzing causal graphical models.  Provides utilities for defining directed acyclic graphs, enumerating adjustment sets and computing the implied conditional independencies.
+    url: https://github.com/jwbowers/causalgraphicalmodel

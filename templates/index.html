@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section class="hero">
+  <h1>{{ author_name }}</h1>
+  {{ bio_html | safe }}
+</section>
+
+<section class="quick-links">
+  <h2>Quick Links</h2>
+  <ul>
+    <li><a href="/publications.html">Publications</a></li>
+    <li><a href="/projects.html">Research &amp; Projects</a></li>
+    <li><a href="/teaching.html">Teaching</a></li>
+    <li><a href="/vita.pdf">Curriculum Vitae</a></li>
+  </ul>
+</section>
+{% endblock %}
