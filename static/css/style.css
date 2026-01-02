@@ -64,6 +64,60 @@ body {
   color: #ffffff;
 }
 
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  width: 40px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #00538a;
+  border-radius: 4px;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  background-color: #00538a;
+  height: 2px;
+  width: 18px;
+  border-radius: 2px;
+  position: relative;
+  transition: transform 0.2s ease;
+  content: '';
+}
+
+.nav-toggle-label span::before {
+  position: absolute;
+  top: -6px;
+  left: 0;
+}
+
+.nav-toggle-label span::after {
+  position: absolute;
+  top: 6px;
+  left: 0;
+}
+
+.nav-toggle:checked + .nav-toggle-label span {
+  transform: rotate(45deg);
+}
+
+.nav-toggle:checked + .nav-toggle-label span::before {
+  transform: rotate(90deg);
+  top: 0;
+}
+
+.nav-toggle:checked + .nav-toggle-label span::after {
+  transform: rotate(90deg);
+  top: 0;
+}
+
 /* Content area spacing */
 .site-content {
   padding: 2rem 0;
@@ -143,6 +197,32 @@ section + section {
 
   .hero-media {
     flex-basis: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header .container {
+    flex-wrap: wrap;
+  }
+
+  .nav-toggle-label {
+    display: inline-flex;
+  }
+
+  .site-nav {
+    width: 100%;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    display: none;
+  }
+
+  .nav-toggle:checked ~ .site-nav ul {
+    display: flex;
   }
 }
 
