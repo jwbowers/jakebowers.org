@@ -146,6 +146,13 @@ def parse_keywords(entry: dict) -> list[str]:
     return [part.strip().lower() for part in parts if part.strip()]
 
 
+def slugify_key(value: str) -> str:
+    if not value:
+        return ''
+    slug = re.sub(r'[^A-Za-z0-9_-]+', '_', value)
+    return slug.strip('_')
+
+
 def parse_bibtex(bib_path: Path):
     """Parse a BibTeX file into a list of dictionaries.
 
@@ -215,7 +222,7 @@ def parse_bibtex(bib_path: Path):
         entries.append(entry)
     return entries
 
-def build_publication_list(entries):
+def build_publication_list(entries, pdf_dir: Path | None = None):
     """Build a single, chronological list of publications."""
     items = []
     for entry in entries:
@@ -261,6 +268,18 @@ def build_publication_list(entries):
             or ''
         )
         url = item.get('url')
+        if not url:
+            doi = item.get('doi', '').strip()
+            if doi:
+                url = doi if doi.startswith('http') else f'https://doi.org/{doi}'
+        if not url:
+            url = item.get('bdsk-url-1') or item.get('bdsk-url-2') or ''
+        if not url and pdf_dir:
+            key = slugify_key(item.get('key', ''))
+            if key:
+                local_pdf = pdf_dir / f'{key}.pdf'
+                if local_pdf.exists():
+                    url = f'static/papers/{local_pdf.name}'
         volume = item.get('volume', '')
         number = item.get('number', '')
         pages = item.get('pages', '')
@@ -282,6 +301,7 @@ def build_publication_list(entries):
             'address': address,
             'note': note,
             'type': etype,
+            'key': item.get('key', ''),
             'url': url,
         })
     return display_items
@@ -324,22 +344,38 @@ def load_courses(courses_path: Path):
     return yaml.safe_load(courses_path.read_text(encoding='utf-8')) if courses_path.exists() else []
 
 
-def load_bio(bio_path: Path):
-    """Load biography markdown and convert to basic HTML."""
-    if not bio_path.exists():
+def render_markdown(text: str) -> str:
+    """Render a small Markdown subset (headings + links) to HTML."""
+    if not text:
         return ''
-    text = bio_path.read_text(encoding='utf-8').strip()
-    # simple conversion: paragraphs separated by blank lines become <p>
-    paragraphs = [para.strip() for para in text.split('\n\n') if para.strip()]
+
     def render_markdown_links(value: str) -> str:
         return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', value)
 
-    html_paragraphs = []
-    for para in paragraphs:
-        normalized = para.replace('\n', ' ')
+    blocks = [block.strip() for block in text.strip().split('\n\n') if block.strip()]
+    html_blocks = []
+    for block in blocks:
+        normalized = block.replace('\n', ' ').strip()
         normalized = render_markdown_links(normalized)
-        html_paragraphs.append('<p>' + normalized + '</p>')
-    return '\n'.join(html_paragraphs)
+        heading_match = re.match(r'^(#{1,3})\s+(.*)$', normalized)
+        if heading_match:
+            level = len(heading_match.group(1))
+            content = heading_match.group(2)
+            html_blocks.append(f'<h{level}>{content}</h{level}>')
+        else:
+            html_blocks.append(f'<p>{normalized}</p>')
+    return '\n'.join(html_blocks)
+
+
+def load_markdown(path: Path):
+    if not path.exists():
+        return ''
+    return render_markdown(path.read_text(encoding='utf-8').strip())
+
+
+def load_bio(bio_path: Path):
+    """Load biography markdown and convert to basic HTML."""
+    return load_markdown(bio_path)
 
 
 def generate_site():
@@ -352,10 +388,11 @@ def generate_site():
     author_name = config.get('author_name', 'Author')
     # load biography
     bio_html = load_bio(data_dir / 'bio.md')
+    future_politics_html = load_markdown(data_dir / 'future_politics.md')
     # load BibTeX
     bib_path = data_dir / 'vita.bib'
     entries = parse_bibtex(bib_path) if bib_path.exists() else []
-    pub_entries = build_publication_list(entries)
+    pub_entries = build_publication_list(entries, pdf_dir=base_dir / 'static' / 'papers')
     current_research = build_current_research(entries)
     # load projects and courses
     current_projects, backburner_projects, software_projects = load_projects(data_dir / 'projects.yaml')
@@ -375,7 +412,11 @@ def generate_site():
     }
     # Generate index
     index_template = env.get_template('index.html')
-    index_html = index_template.render(**common, title=f'{site_name}', bio_html=bio_html)
+    index_html = index_template.render(
+        **common,
+        title=f'{site_name}',
+        bio_html=bio_html,
+    )
     (base_dir / 'index.html').write_text(index_html, encoding='utf-8')
     # Generate publications
     pub_template = env.get_template('publications.html')
@@ -385,7 +426,7 @@ def generate_site():
     projects_template = env.get_template('projects.html')
     projects_html = projects_template.render(
         **common,
-        title='Research & Projects',
+        title='Research & Software',
         current_projects=current_projects,
         backburner_projects=backburner_projects,
         software_projects=software_projects,
@@ -396,6 +437,14 @@ def generate_site():
     teaching_template = env.get_template('teaching.html')
     teaching_html = teaching_template.render(**common, title='Teaching', courses=courses)
     (base_dir / 'teaching.html').write_text(teaching_html, encoding='utf-8')
+    # Generate Future Politics
+    future_template = env.get_template('future_politics.html')
+    future_html = future_template.render(
+        **common,
+        title='Future Politics',
+        future_politics_html=future_politics_html,
+    )
+    (base_dir / 'future-politics.html').write_text(future_html, encoding='utf-8')
     print('Site generated successfully.')
 
 
