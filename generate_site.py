@@ -307,29 +307,6 @@ def build_publication_list(entries, pdf_dir: Path | None = None):
     return display_items
 
 
-def build_current_research(entries):
-    """Collect under-review submissions for the Research & Projects page."""
-    current = []
-    for entry in entries:
-        keywords = parse_keywords(entry)
-        if 'under_review' not in keywords:
-            continue
-        title = entry.get('title', '')
-        status = entry.get('journal') or entry.get('note') or 'Under review'
-        url = entry.get('url')
-        year = entry.get('year', '')
-        current.append({
-            'title': title,
-            'status': status,
-            'url': url,
-            'year': year,
-        })
-    current_sorted = sorted(
-        current,
-        key=lambda x: (-safe_year(x.get('year', '')), x.get('title', '')),
-    )
-    return current_sorted
-
 def load_projects(projects_path: Path):
     """Load projects YAML and return structured lists for templates."""
     data = yaml.safe_load(projects_path.read_text(encoding='utf-8')) if projects_path.exists() else {}
@@ -393,7 +370,6 @@ def generate_site():
     bib_path = data_dir / 'vita.bib'
     entries = parse_bibtex(bib_path) if bib_path.exists() else []
     pub_entries = build_publication_list(entries, pdf_dir=base_dir / 'static' / 'papers')
-    current_research = build_current_research(entries)
     # load projects and courses
     current_projects, backburner_projects, software_projects = load_projects(data_dir / 'projects.yaml')
     courses = load_courses(data_dir / 'teaching.yaml')
@@ -430,7 +406,6 @@ def generate_site():
         current_projects=current_projects,
         backburner_projects=backburner_projects,
         software_projects=software_projects,
-        current_research=current_research,
     )
     (base_dir / 'projects.html').write_text(projects_html, encoding='utf-8')
     # Generate teaching

@@ -306,6 +306,16 @@ section + section {
   text-decoration: underline;
 }
 
+.project-coauthors {
+  margin-top: 0.5rem;
+  color: #555555;
+}
+
+.project-coauthors a {
+  color: #00538a;
+  font-weight: 600;
+}
+
 /* Teaching */
 .course {
   margin-bottom: 2rem;
