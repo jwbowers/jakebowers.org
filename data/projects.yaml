@@ -1,26 +1,78 @@
 current:
-  - title: Public Service Provision and the Virtuous Circle
+  - title: "Joint Sensitivity Analysis for Multiple Assumptions: Unpacking Racial Disparity in Police Use of Force"
     description: |
-      A randomized evaluation in Malawi investigating how local government service delivery affects citizens’ trust and participation.  Co‑authored with Christopher Grady and colleagues, the project combines surveys and behavioral measures to study accountability and reciprocity.
-    url: https://arxiv.org/abs/2025.01234
+      Joint work with Tom Leavitt and Luke Miratrix on a joint sensitivity analysis for bias in police encounters and stops, applied to NYPD Stop, Question, and Frisk data (2003-2013). We show how dependence between encounter bias and stop bias changes inference about racial disparities in police use of force, and we assess robustness as violations increase. Revise and resubmit at the Journal of the American Statistical Association.
+    url: null
+    coauthors:
+      - name: Tom Leavitt
+        url: https://www.tomleavitt.com/
+      - name: Luke Miratrix
+        url: https://www.gse.harvard.edu/directory/faculty/luke-miratrix
 
-  - title: Two Path Theory of Context Effects
+  - title: "Powerful Detection of Effects in Block-Randomized Experiments by Testing Hypotheses in Order"
     description: |
-      Research on how pseudo‑environments and social cohesion shape individuals’ perceptions and behavior.  Joint work with Cara Wong, Daniel Rubenson, Mark Fredrickson and Ashlea Rundlett.  The paper is forthcoming in the *British Journal of Political Science*.
-    url: https://arxiv.org/abs/2024.09876
+      Joint work with Nuole Chen and David Kim, including the manytestsr R package. We present a method based on the Sequential Intersection Union Principle and energy or distance test statistics to detect where policy effects appear in block-randomized experiments while controlling family-wise error. We compare to block-by-block testing with p-value adjustment and show improved power in simulations and 25 education trials. In preparation.
+    url: null
+    coauthors:
+      - name: Nuole Chen
+        url: https://mitgovlab.org/people/nuole-lula-chen/
+      - name: David Kim
+        url: https://stat.illinois.edu/directory/profile/davidk9
+
+  - title: "Randomization Tests for Distributions of Individual Treatment Effects Combining Multiple Rank Statistics"
+    description: |
+      Joint work with Xinran Li, David Kim, and Yongchang Su. We develop a combined Stephenson rank test that avoids choosing a single subset size, controls false positives, and improves power for concentrated effects and outliers. We derive permutation distributions for randomized studies with and without blocks. In preparation.
+    url: null
+    coauthors:
+      - name: Xinran Li
+        url: https://stat.uchicago.edu/people/profile/xinran-li/
+      - name: David Kim
+        url: https://stat.illinois.edu/directory/profile/davidk9
+      - name: Yongchang Su
+        url: https://www.linkedin.com/in/yongchang-su-367a3a237/
+
+  - title: "Experimental Reasoning in Process Tracing: A Method for Calculating P-Values for Qualitative Causal Inference"
+    description: |
+      Joint work with Matias Lopez. We adapt Fisher's urn model to qualitative process tracing to compute p-values for evidence supporting one theory over another. The method includes sensitivity analysis for observation bias and a framework for weighing evidence strength, illustrated with simulations and replications. Under review.
+    url: null
+    coauthors:
+      - name: Matias Lopez
+        url: https://matiaslopezuy.wixsite.com/matiaslopez
+
+  - title: The Causal Inference for Social Impact (CISIL) Data Challenge
+    description: |
+      Joint work with Carrie Cihak, Betsy Rajala, Quinn Waeiss, Ryan Moore, Laura Stoker, Laura Feeney, Ben Hansen, Crystal Hall, and Anjali Chainani. We recruited 30 teams to evaluate transportation policy impacts in King County, WA to study how analytic decisions affect results and policy conclusions. Launched in February 2022 with 31 teams from 10 countries. In preparation.
+    url: https://casbs.stanford.edu/causal-inference-social-impact-lab-s-data-challenge
+    coauthors:
+      - name: Carrie Cihak
+        url: https://www.linkedin.com/in/carrie-s-cihak-43059174/
+      - name: Betsy Rajala
+        url: https://ethicsinsociety.stanford.edu/people/betsy-rajala
+      - name: Quinn Waeiss
+        url: https://profiles.stanford.edu/quinn-waeiss
+      - name: Ryan Moore
+        url: https://ryantmoore.org/
+      - name: Laura Stoker
+        url: https://polisci.berkeley.edu/people/person/laura-stoker
+      - name: Laura Feeney
+        url: https://www.povertyactionlab.org/person/feeney
+      - name: Ben Hansen
+        url: https://lsa.umich.edu/stats/people/faculty/bbh.html
+      - name: Crystal Hall
+        url: https://evans.uw.edu/profile/crystal-hall/
+      - name: Anjali Chainani
+        url: https://www.fels.upenn.edu/people-fels/faculty-instructors/anjali-chainani
 
 backburner:
-  - title: Models, Methods and Network Topology
-    description: |
-      An exploration of experimental design for the study of interference in social networks.  Examines how network structure affects causal estimates and proposes design‑based adjustments.  Published in *Social Networks* in 2018.
-    url: null
-  - title: No Evidence that Collective‑Good Appeals Best Promote COVID‑Related Health Behaviors
-    description: |
-      Reanalysis of a statewide randomized controlled trial of messaging strategies during the COVID‑19 pandemic.  Joint work with Nathaniel Rabb, David Glick and colleagues, originally published in *PNAS* 2021.
-    url: null
 
 software:
   - title: RItools
     description: |
-      The R package **RItools** implements randomization inference methods for evaluating treatment effects in experiments, including block randomized designs and matched pairs.  It facilitates flexible analysis without reliance on large‑sample asymptotics.
+      This R package implements randomization inference methods for assessing
+      balance in matched or stratified observational studies or randomized
+      studies or causal effects in complete, blocked/stratified, and/or
+      cluster-randomized studies. It implements the $d^2$ test for omnibus
+      tests of the null hypothesis of no relationship between any covariate and
+      treatment (for balance tests) or tests of the null hypothesis of no
+      effects on any of multiple outcomes from a single treatment.
     url: https://cran.r-project.org/package=RItools

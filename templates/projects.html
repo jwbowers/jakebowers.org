@@ -3,20 +3,6 @@
 {% block content %}
 <section class="projects">
   <h1>Research &amp; Software</h1>
-  {% if current_research %}
-  <h2>Current Research</h2>
-  <ul class="project-list">
-    {% for item in current_research %}
-    <li class="project">
-      <strong>{{ item.title }}</strong>
-      {% if item.url %}- <a href="{{ item.url }}" class="project-link">[link]</a>{% endif %}
-      {% if item.status %}
-      <p>{{ item.status }}</p>
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
   {% if current_projects %}
   <h2>Current Projects</h2>
   <ul class="project-list">
@@ -25,6 +11,18 @@
       <strong>{{ proj.title }}</strong>
       {% if proj.url %}- <a href="{{ proj.url }}" class="project-link">[link]</a>{% endif %}
       <p>{{ proj.description }}</p>
+      {% if proj.coauthors %}
+      <p class="project-coauthors">
+        Co-authors:
+        {% for author in proj.coauthors %}
+        {% if author.url %}
+        <a href="{{ author.url }}">{{ author.name }}</a>{% if not loop.last %}, {% endif %}
+        {% else %}
+        <span>{{ author.name }}</span>{% if not loop.last %}, {% endif %}
+        {% endif %}
+        {% endfor %}
+      </p>
+      {% endif %}
     </li>
     {% endfor %}
   </ul>

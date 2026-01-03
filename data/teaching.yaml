@@ -1,3 +1,25 @@
+- term: Fall 2025
+  courses:
+    - title: "Future Politics"
+      url: https://static.jakebowers.org/MISC/future_politics_syllabus_2025.pdf
+      description: "An interdisciplinary seminar examining how speculative fiction can illuminate political theory, social change, and the future of democracy. Students read science fiction and pair it with scholarly work on institutions, power, and inequality."
+    - title: "Introduction to Applied Statistics in Political Science: Description, Comparison, Estimation, Inference"
+      url: https://static.jakebowers.org/MISC/ps530f25syl.pdf
+      description: "First-term statistics course for political science PhD
+      students focusing on description, comparison, estimation, and testing."
+
+- term: Spring 2025
+  courses:
+    - title: "Statistical Adjustment and Inference the Linear Model"
+      url: https://static.jakebowers.org/MISC/ps531s25syl.pdf
+      description: "Second-term statistics course for political science PhD students focusing on regression models, statistical adjustment, and inference. Emphasizes understanding assumptions, diagnostics, and causal interpretation."
+
+- term: Fall 2024
+  courses:
+    - title: "Statistical Adjustment and Inference the Linear Model"
+      url: https://static.jakebowers.org/MISC/ps531f24syl.pdf
+      description: "Second-term statistics course for political science PhD students focusing on regression models, statistical adjustment, and inference. Emphasizes understanding assumptions, diagnostics, and causal interpretation."
+
 - term: Fall 2023
   courses:
     - title: "Future Politics"
