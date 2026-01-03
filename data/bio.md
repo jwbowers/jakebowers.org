@@ -4,8 +4,8 @@ Science](https://pol.illinois.edu) and
 Urbana-Champaign](https://illinois.edu). His methodological research focuses on
 the design and analysis of both randomized experiments and non-randomized
 observational studies in the service of understanding human behavior and
-improving public policy. His work on human behavior includes research on COVID
-vaccination attitudes in the USA, attitudes towards taxation in Malawi, and the
+improving public policy. His substantive work includes research on COVID
+vaccination attitudes in the USA, tax behavior and attitudes in Malawi, and the
 perceptions of group relationships in neighborhoods in Canada.
 
 He currently serves as the Methods Director for the [Evidence in Governance and
