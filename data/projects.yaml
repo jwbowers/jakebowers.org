@@ -76,3 +76,21 @@ software:
       treatment (for balance tests) or tests of the null hypothesis of no
       effects on any of multiple outcomes from a single treatment.
     url: https://cran.r-project.org/package=RItools
+  - title: manytestsr (development)
+    description: |
+      A package to do many tests to localize causal effects in (sets of) experimental blocks
+    url: https://bowers-illinois-edu.github.io/manytestsr/
+  - title: DrBristol (development)
+    description: |
+      A set of functions to compute p-values and perform
+      sensitivity analysis, adapting Fisher’s p-value test to case studies and
+      process tracing following López and Bowers (2025). It uses unbiased and
+      biased urn models to draw null distributions in the absence of
+      randomization.
+    url: https://bowers-illinois-edu.github.io/DrBristol/
+  - title: CMRSS (development)
+    description: |
+      R package for conducting randomization inference for quantiles of
+      individual treatment effects, using combined rank sum statistics, both
+      for completely randomized and stratified randomized experiments
+    url: https://bowers-illinois-edu.github.io/CMRSS/
