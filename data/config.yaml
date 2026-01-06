@@ -1,3 +1,7 @@
 site_name: Jake Bowers
 author_name: Jake Bowers
 vita_pdf: vita.pdf
+# GoatCounter analytics - set to your site code (e.g., "jakebowers" for jakebowers.goatcounter.com)
+# Sign up free at https://www.goatcounter.com/
+goatcounter_code: "jakebowers"
+

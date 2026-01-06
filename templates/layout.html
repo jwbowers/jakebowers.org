@@ -45,5 +45,9 @@
         <p>&copy; {{ current_year }} {{ author_name }}. All rights reserved.</p>
       </div>
     </footer>
+    {% if goatcounter_code %}
+    <script data-goatcounter="https://{{ goatcounter_code }}.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    {% endif %}
   </body>
 </html>
