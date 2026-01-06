@@ -366,3 +366,9 @@ section + section {
   padding: 1rem 0;
   text-align: center;
 }
+
+.site-footer .analytics-notice {
+  font-size: 0.85rem;
+  color: #666666;
+  margin-top: 0.5rem;
+}

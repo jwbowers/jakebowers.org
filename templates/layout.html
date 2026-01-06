@@ -43,6 +43,9 @@
     <footer class="site-footer">
       <div class="container">
         <p>&copy; {{ current_year }} {{ author_name }}. All rights reserved.</p>
+        {% if goatcounter_code %}
+        <p class="analytics-notice">Site analytics by <a href="https://{{ goatcounter_code }}.goatcounter.com">GoatCounter</a>. No personal data or cookies are stored.</p>
+        {% endif %}
       </div>
     </footer>
     {% if goatcounter_code %}
