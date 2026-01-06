@@ -363,6 +363,7 @@ def generate_site():
     config = yaml.safe_load(config_path.read_text(encoding='utf-8')) if config_path.exists() else {}
     site_name = config.get('site_name', 'My Site')
     author_name = config.get('author_name', 'Author')
+    goatcounter_code = config.get('goatcounter_code', '')
     # load biography
     bio_html = load_bio(data_dir / 'bio.md')
     future_politics_html = load_markdown(data_dir / 'future_politics.md')
@@ -385,6 +386,7 @@ def generate_site():
         'author_name': author_name,
         'current_year': current_year,
         'static_path': 'static',
+        'goatcounter_code': goatcounter_code,
     }
     # Generate index
     index_template = env.get_template('index.html')
