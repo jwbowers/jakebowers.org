@@ -41,4 +41,4 @@ and
 [French](https://egap.github.io/theory_and_practice_of_field_experiments_french/). He teaches about causal inference and experiments in the [EGAP Learning Days](https://egap.org/learning-days/) in Latin America as well as in the [Escuela de Invierno de Metodods](https://www.ucu.edu.uy/categoria/Escuela-en-Metodos-367).
 
 You can see one measure of the impact of his scholarly work on his [Google Scholar
-profile](https://scholar.google.com/citations?user=vM7rQCQAAAAJ) 
+profile](https://scholar.google.com/citations?user=vM7rQCQAAAAJ&hl=en)
