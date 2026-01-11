@@ -288,6 +288,18 @@ def build_publication_list(entries, pdf_dir: Path | None = None):
         address = item.get('address', '')
         note = item.get('note') or item.get('annote') or ''
         etype = item.get('type', '')
+        # Determine category for filtering
+        keywords = parse_keywords(item)
+        if 'peer_reviewed' in keywords:
+            category = 'peer-reviewed'
+        elif 'technical_report' in keywords or 'tecnical_report' in keywords:
+            category = 'technical-report'
+        elif 'open_source' in keywords:
+            category = 'software'
+        elif 'essay' in keywords:
+            category = 'essay'
+        else:
+            category = 'other'
         display_items.append({
             'authors': authors,
             'title': title,
@@ -303,6 +315,7 @@ def build_publication_list(entries, pdf_dir: Path | None = None):
             'type': etype,
             'key': item.get('key', ''),
             'url': url,
+            'category': category,
         })
     return display_items
 

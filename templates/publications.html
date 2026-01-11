@@ -3,9 +3,18 @@
 {% block content %}
 <section class="publications">
   <h1>Articles, Chapters, Reports</h1>
+
+  <div class="pub-filters" role="group" aria-label="Filter publications">
+    <button class="pub-filter-btn active" data-filter="all">All</button>
+    <button class="pub-filter-btn" data-filter="peer-reviewed">Peer Reviewed</button>
+    <button class="pub-filter-btn" data-filter="technical-report">Technical Reports</button>
+    <button class="pub-filter-btn" data-filter="software">Software</button>
+    <button class="pub-filter-btn" data-filter="essay">Essays</button>
+  </div>
+
   <ul class="pub-list">
     {% for pub in pub_entries %}
-    <li class="publication">
+    <li class="publication" data-category="{{ pub.category }}">
       <span class="pub-authors">{{ pub.authors }}</span>.
       {% if pub.date %}<span class="pub-date">{{ pub.date }}</span>.{% endif %}
       <span class="pub-title">"{{ pub.title }}"</span>.
@@ -42,4 +51,30 @@
     {% endfor %}
   </ul>
 </section>
+
+<script>
+(function() {
+  const buttons = document.querySelectorAll('.pub-filter-btn');
+  const publications = document.querySelectorAll('.publication');
+
+  buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+
+      // Update active button
+      buttons.forEach(function(btn) { btn.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Filter publications
+      publications.forEach(function(pub) {
+        if (filter === 'all' || pub.getAttribute('data-category') === filter) {
+          pub.style.display = '';
+        } else {
+          pub.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
 {% endblock %}
