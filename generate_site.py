@@ -294,9 +294,7 @@ def build_publication_list(entries, pdf_dir: Path | None = None):
             category = 'peer-reviewed'
         elif 'technical_report' in keywords or 'tecnical_report' in keywords:
             category = 'technical-report'
-        elif 'open_source' in keywords:
-            category = 'software'
-        elif 'essay' in keywords:
+        elif 'essay' in keywords or 'open_source' in keywords:
             category = 'essay'
         else:
             category = 'other'
