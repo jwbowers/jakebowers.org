@@ -4,11 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ title }}</title>
+    <meta name="description" content="{{ meta_description | default('Jake Bowers - Professor of Political Science and Statistics at the University of Illinois at Urbana-Champaign') }}" />
+    <meta name="author" content="{{ author_name }}" />
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:description" content="{{ meta_description | default('Jake Bowers - Professor of Political Science and Statistics at the University of Illinois at Urbana-Champaign') }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://jakebowers.org/static/img/hero-photo.png" />
+    <meta property="og:url" content="https://jakebowers.org/" />
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ title }}" />
+    <meta name="twitter:description" content="{{ meta_description | default('Jake Bowers - Professor of Political Science and Statistics at the University of Illinois at Urbana-Champaign') }}" />
+    <meta name="twitter:image" content="https://jakebowers.org/static/img/hero-photo.png" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ static_path }}/img/favicon.svg" />
+    <link rel="icon" type="image/png" href="{{ static_path }}/img/favicon.png" />
     <!-- Import a modern sans‑serif font for a clean, accessible look -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ static_path }}/css/style.css" />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
       <div class="container">
         <a href="index.html" class="brand">{{ site_name }}</a>
@@ -28,7 +45,7 @@
       </div>
     </header>
 
-    <main class="site-content">
+    <main id="main-content" class="site-content">
       <div class="container">
         {#
           The content block is defined in child templates.  The `safe`
@@ -42,10 +59,18 @@
 
     <footer class="site-footer">
       <div class="container">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="publications.html">Publications</a>
+          <a href="projects.html">Research</a>
+          <a href="teaching.html">Teaching</a>
+          <a href="https://static.jakebowers.org/MISC/bowers-vita.pdf">CV</a>
+        </nav>
         <p>&copy; {{ current_year }} {{ author_name }}. All rights reserved.</p>
         {% if goatcounter_code %}
         <p class="analytics-notice">Site analytics by <a href="https://{{ goatcounter_code }}.goatcounter.com">GoatCounter</a>. No personal data or cookies are stored.</p>
         {% endif %}
+        <a href="#" class="back-to-top">Back to top</a>
       </div>
     </footer>
     {% if goatcounter_code %}

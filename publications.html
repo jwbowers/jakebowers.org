@@ -4,11 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Publications</title>
+    <meta name="description" content="Jake Bowers - Professor of Political Science and Statistics at the University of Illinois at Urbana-Champaign" />
+    <meta name="author" content="Jake Bowers" />
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Publications" />
+    <meta property="og:description" content="Jake Bowers - Professor of Political Science and Statistics at the University of Illinois at Urbana-Champaign" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://jakebowers.org/static/img/hero-photo.png" />
+    <meta property="og:url" content="https://jakebowers.org/" />
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Publications" />
+    <meta name="twitter:description" content="Jake Bowers - Professor of Political Science and Statistics at the University of Illinois at Urbana-Champaign" />
+    <meta name="twitter:image" content="https://jakebowers.org/static/img/hero-photo.png" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="static/img/favicon.svg" />
+    <link rel="icon" type="image/png" href="static/img/favicon.png" />
     <!-- Import a modern sans‑serif font for a clean, accessible look -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="static/css/style.css" />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
       <div class="container">
         <a href="index.html" class="brand">Jake Bowers</a>
@@ -28,15 +45,24 @@
       </div>
     </header>
 
-    <main class="site-content">
+    <main id="main-content" class="site-content">
       <div class="container">
         
         
 <section class="publications">
   <h1>Articles, Chapters, Reports</h1>
+
+  <div class="pub-filters" role="group" aria-label="Filter publications">
+    <button class="pub-filter-btn active" data-filter="all">All</button>
+    <button class="pub-filter-btn" data-filter="peer-reviewed">Peer Reviewed</button>
+    <button class="pub-filter-btn" data-filter="technical-report">Technical Reports</button>
+    <button class="pub-filter-btn" data-filter="software">Software</button>
+    <button class="pub-filter-btn" data-filter="essay">Essays</button>
+  </div>
+
   <ul class="pub-list">
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Wong, Cara, Bowers, Jake, Rubenson, Daniel, Fredrickson,
 	          Mark, and Rundlett, Ashlea</span>.
       <span class="pub-date">2026</span>.
@@ -55,7 +81,7 @@
       <a href="https://doi.org/10.1017/s0007123425101099" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Christopher Grady, Nuole Chen, Matt Winters, Busta Chiona, Mwayi Masumbu, Jake Bowers, and Boniface Dulani</span>.
       <span class="pub-date">2026</span>.
       <span class="pub-title">"Public Service Provision and the Virtuous Circle: Evidence from
@@ -73,7 +99,7 @@
       <a href="https://doi.org/10.1007/s12116-025-09484-0" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Jake Bowers, Natasha Greenberg, Morgan Holmes, and Daniel N.
 	          Posner</span>.
       <span class="pub-date">2024</span>.
@@ -102,7 +128,7 @@
       <a href="https://doi.org/10.1093/oxfordhb/9780192868282.001.0001" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">David Yokum and Jake Bowers</span>.
       <span class="pub-date">2024</span>.
       <span class="pub-title">"The Value of Pre-Analysis Plans"</span>.
@@ -128,7 +154,7 @@
       <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4307172" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Nathaniel Rabb, Jake Bowers, David Glick, Kevin H. Wilson, and David Yokum</span>.
       <span class="pub-date">Jul. 2022</span>.
       <span class="pub-title">"The influence of social norms varies with ``others&#39;&#39; groups: Evidence
@@ -148,7 +174,7 @@
       <a href="https://doi.org/10.1073/pnas.2118770119" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="software">
       <span class="pub-authors">Luke Olson and Jake Bowers</span>.
       <span class="pub-date">May 2022</span>.
       <span class="pub-title">"10 Things to Know About Writing Academic Papers in LaTeX"</span>.
@@ -165,7 +191,7 @@
       <a href="https://egap.org/resource/10-things-to-know-about-hypothesis-testing/" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Nathaniel Rabb, Megan Swindal, David Glick, Jake Bowers and
 	          Anna Tomasulo, Zayid Oyelami, Kevin Wilson, and David Yokum</span>.
       <span class="pub-date">Apr. 2022</span>.
@@ -183,7 +209,7 @@
       <a href="https://www.nature.com/articles/s41586-022-04526-2" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="software">
       <span class="pub-authors">Bowers, Jake and Rebecca Wolfe</span>.
       <span class="pub-date">Nov. 2021</span>.
       <span class="pub-title">"10 Conversations that Implementers and Evaluators Need to Have"</span>.
@@ -200,7 +226,7 @@
       <a href="https://egap.org/resource/10-implementer-evaluator-conversations/" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="software">
       <span class="pub-authors">Bowers, Jake, Christopher Grady, and Gustavo Diaz</span>.
       <span class="pub-date">Jan. 2021</span>.
       <span class="pub-title">"Estimating Average Treatment Effects in Block Randomized Experiments:
@@ -218,7 +244,7 @@
       <a href="https://egap.org/resource/sd-block-rand/" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Rabb, Nathaniel, Glick, David, Houston, Attiyya, Bowers,
 	          Jake, and Yokum, David</span>.
       <span class="pub-date">2021</span>.
@@ -245,7 +271,7 @@
       <a href="https://doi.org/10.1073/pnas.2100662118" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake and Leavitt, Thomas</span>.
       <span class="pub-date">2020</span>.
       <span class="pub-title">"Causality &amp; Design-Based Inference"</span>.
@@ -271,7 +297,7 @@
       <a href="static/papers/bowers2020causality.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="software">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">Jan. 2019</span>.
       <span class="pub-title">"10 Things to Know About Hypothesis Testing"</span>.
@@ -288,7 +314,7 @@
       <a href="https://egap.org/resource/10-things-to-know-about-hypothesis-testing/" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake and F. Testa, Paul</span>.
       <span class="pub-date">2019</span>.
       <span class="pub-title">"Better Government, Better Science: The Promise of and Challenges
@@ -314,7 +340,7 @@
       <a href="static/papers/bowers2019better.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake, Desmarais, Bruce A, Frederickson, Mark and
 	          Ichino, Nahomi, Lee, Hsuan-Wei, and Wang, Simi</span>.
       <span class="pub-date">2018</span>.
@@ -341,7 +367,7 @@
       <a href="static/papers/bowers2018models.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake, Higgins, Nathaniel, Karlan, Dean, Tulman,
 	          Sarah, and Zinman, Jonathan</span>.
       <span class="pub-date">2017</span>.
@@ -362,7 +388,7 @@
       <a href="static/papers/bowers2017challenges.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="software">
       <span class="pub-authors">Bowers, Jake, Cooper, Jasper, and Wilke, Anna</span>.
       <span class="pub-date">Jan. 2016</span>.
       <span class="pub-title">"10 Things to Know About Cluster Randomization"</span>.
@@ -379,7 +405,7 @@
       <a href="https://egap.org/resource/10-things-to-know-about-cluster-randomization/" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake, Fredrickson, Mark, and Aronow, Peter M</span>.
       <span class="pub-date">2016</span>.
       <span class="pub-title">"Research Note: A more powerful test statistic for reasoning about
@@ -399,7 +425,7 @@
       <a href="static/papers/bowers2016research.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake and Voors, Maarten</span>.
       <span class="pub-date">2016</span>.
       <span class="pub-title">"Six Steps to a Better Relationship with Your Future Self, V 2.0"</span>.
@@ -418,7 +444,7 @@
       <a href="https://github.com/jwbowers/workflow" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">2014</span>.
       <span class="pub-title">"Comment: Method games---A proposal for assessing and learning about
@@ -444,7 +470,7 @@
       <a href="static/papers/bowers2014comment.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake, Fredrickson, Mark M, and Panagopoulos, Costas</span>.
       <span class="pub-date">2013</span>.
       <span class="pub-title">"Reasoning about Interference Between Units: A General Framework"</span>.
@@ -469,7 +495,7 @@
       <a href="static/papers/bowers2013reasoning.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Wong, Cara, Bowers, Jake, Williams, Tarah, and Drake, Katherine</span>.
       <span class="pub-date">Oct. 2012</span>.
       <span class="pub-title">"Bringing the Person Back In: Boundaries, Misperceptions, and the
@@ -489,7 +515,7 @@
       <a href="static/papers/wong2012jop.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">2011</span>.
       <span class="pub-title">"Making Effects Manifest in Randomized Experiments"</span>.
@@ -515,7 +541,7 @@
       <a href="static/papers/bowers2011mem.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="essay">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">2011</span>.
       <span class="pub-title">"Six steps to a better relationship with your future self."</span>.
@@ -534,7 +560,7 @@
       <a href="static/papers/bowers2011tpm.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Hansen, Ben B. and Bowers, Jake</span>.
       <span class="pub-date">Sept. 2009</span>.
       <span class="pub-title">"Attributing Effects to A Cluster Randomized Get-Out-The-Vote
@@ -554,7 +580,7 @@
       <a href="http://dx.doi.org/10.1198/jasa.2009.ap06589" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Jennings, {M.} Kent, Stoker, Laura, and Bowers, Jake</span>.
       <span class="pub-date">2009</span>.
       <span class="pub-title">"Politics across Generations: Family Transmission Reexamined"</span>.
@@ -573,7 +599,7 @@
       <a href="http://dx.doi.org/10.1017/S0022381609090719" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Hansen, Ben B and Bowers, Jake</span>.
       <span class="pub-date">2008</span>.
       <span class="pub-title">"Covariate Balance in Simple, Stratified and Clustered Comparative
@@ -593,7 +619,7 @@
       <a href="doi:10.1214/08-STS254" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Jake Bowers, Burns, Nancy, Ensley, Michael J., and Kinder,
 	          Donald R.</span>.
       <span class="pub-date">2005</span>.
@@ -619,7 +645,7 @@
       <a href="static/papers/bowers2005analyzing.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake and Drake, Katherine W</span>.
       <span class="pub-date">2005</span>.
       <span class="pub-title">"EDA for HLM: Visualization when probabilistic inference fails"</span>.
@@ -644,7 +670,7 @@
       <a href="static/papers/bowers2005eda.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">2004</span>.
       <span class="pub-title">"Does moving disrupt campaign activity?"</span>.
@@ -669,7 +695,7 @@
       <a href="static/papers/bowers2004does.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="essay">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">2004</span>.
       <span class="pub-title">"Using R to Keep it Simple: Exploring Structure in Multilevel Dataset"</span>.
@@ -688,7 +714,7 @@
       <a href="static/papers/bowers2004tpm.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="technical-report">
       <span class="pub-authors">Bowers, Jake and Ensley, Michael</span>.
       <span class="pub-date">2003</span>.
       <span class="pub-title">"Issues in Analyzing Data from the Dual-Mode 2000 American National
@@ -708,7 +734,7 @@
       <a href="static/papers/bow_ensley_03.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Stoker, Laura and Bowers, Jake</span>.
       <span class="pub-date">Sept. 2002</span>.
       <span class="pub-title">"Erratum to ``Designing multi-level studies: sampling voters and
@@ -728,7 +754,7 @@
       <a href="http://dx.doi.org/10.1016/S0261-3794(02)00011-2" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="peer-reviewed">
       <span class="pub-authors">Stoker, Laura and Bowers, Jake</span>.
       <span class="pub-date">Jun. 2002</span>.
       <span class="pub-title">"Designing Multi-Level Studies: Sampling Voters and Electoral Contexts"</span>.
@@ -750,7 +776,7 @@
       <a href="static/papers/stokbowe_2002.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="technical-report">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">1998</span>.
       <span class="pub-title">"Black Threat and Christian Fundamentalist Threat"</span>.
@@ -769,7 +795,7 @@
       <a href="static/papers/bowers1998black.pdf" class="pub-link">[link]</a>
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="essay">
       <span class="pub-authors">Stoker, Laura and Bowers, Jake</span>.
       <span class="pub-date">Aug. 1997</span>.
       <span class="pub-title">"Contextual analysis and the NES"</span>.
@@ -786,7 +812,7 @@
       
     </li>
     
-    <li class="publication">
+    <li class="publication" data-category="technical-report">
       <span class="pub-authors">Bowers, Jake</span>.
       <span class="pub-date">1995</span>.
       <span class="pub-title">"ANES Pilot Study Efforts to Measure Values and Predispositions"</span>.
@@ -808,15 +834,49 @@
   </ul>
 </section>
 
+<script>
+(function() {
+  const buttons = document.querySelectorAll('.pub-filter-btn');
+  const publications = document.querySelectorAll('.publication');
+
+  buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+
+      // Update active button
+      buttons.forEach(function(btn) { btn.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Filter publications
+      publications.forEach(function(pub) {
+        if (filter === 'all' || pub.getAttribute('data-category') === filter) {
+          pub.style.display = '';
+        } else {
+          pub.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
+
       </div>
     </main>
 
     <footer class="site-footer">
       <div class="container">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="publications.html">Publications</a>
+          <a href="projects.html">Research</a>
+          <a href="teaching.html">Teaching</a>
+          <a href="https://static.jakebowers.org/MISC/bowers-vita.pdf">CV</a>
+        </nav>
         <p>&copy; 2026 Jake Bowers. All rights reserved.</p>
         
         <p class="analytics-notice">Site analytics by <a href="https://jakebowers.goatcounter.com">GoatCounter</a>. No personal data or cookies are stored.</p>
         
+        <a href="#" class="back-to-top">Back to top</a>
       </div>
     </footer>
     
