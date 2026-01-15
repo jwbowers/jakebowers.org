@@ -46,6 +46,7 @@
       <span class="pub-note">{{ pub.note }}</span>.
       {% endif %}
       {% if pub.url %}<a href="{{ pub.url }}" class="pub-link">[link]</a>{% endif %}
+      {% if pub.pdf_url %}<a href="{{ pub.pdf_url }}" class="pub-link">[pdf]</a>{% endif %}
     </li>
     {% endfor %}
   </ul>

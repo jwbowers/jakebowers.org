@@ -153,6 +153,59 @@ def slugify_key(value: str) -> str:
     return slug.strip('_')
 
 
+def is_pdf_url(url: str) -> bool:
+    if not url:
+        return False
+    lowered = url.lower()
+    return lowered.endswith('.pdf') or 'static/papers/' in lowered
+
+
+def build_pdf_index(pdf_dir: Path | None) -> dict[str, str]:
+    if not pdf_dir or not pdf_dir.exists():
+        return {}
+    pdf_index: dict[str, str] = {}
+    for path in pdf_dir.iterdir():
+        if path.is_file() and path.suffix.lower() == '.pdf':
+            pdf_index[path.name.lower()] = path.name
+    return pdf_index
+
+
+def load_pdf_map(pdf_map_path: Path) -> dict[str, str]:
+    if not pdf_map_path.exists():
+        return {}
+    data = yaml.safe_load(pdf_map_path.read_text(encoding='utf-8')) or {}
+    if not isinstance(data, dict):
+        return {}
+    normalized = {}
+    for key, value in data.items():
+        if not key or not value:
+            continue
+        normalized[str(key).strip()] = str(value).strip()
+    return normalized
+
+
+def resolve_pdf_url(entry: dict, pdf_index: dict[str, str], pdf_map: dict[str, str] | None) -> str:
+    if not pdf_index:
+        return ''
+    key = entry.get('key', '')
+    slug = slugify_key(key)
+    candidates: list[str] = []
+    if pdf_map:
+        mapped = pdf_map.get(key) or (pdf_map.get(slug) if slug else None)
+        if mapped:
+            candidates.append(mapped)
+    if slug:
+        candidates.append(f'{slug}.pdf')
+    for candidate in candidates:
+        candidate_name = Path(candidate).name
+        if not candidate_name.lower().endswith('.pdf'):
+            candidate_name = f'{candidate_name}.pdf'
+        match = pdf_index.get(candidate_name.lower())
+        if match:
+            return f'static/papers/{match}'
+    return ''
+
+
 def parse_bibtex(bib_path: Path):
     """Parse a BibTeX file into a list of dictionaries.
 
@@ -222,8 +275,9 @@ def parse_bibtex(bib_path: Path):
         entries.append(entry)
     return entries
 
-def build_publication_list(entries, pdf_dir: Path | None = None):
+def build_publication_list(entries, pdf_dir: Path | None = None, pdf_map: dict[str, str] | None = None):
     """Build a single, chronological list of publications."""
+    pdf_index = build_pdf_index(pdf_dir)
     items = []
     for entry in entries:
         keywords = parse_keywords(entry)
@@ -267,19 +321,32 @@ def build_publication_list(entries, pdf_dir: Path | None = None):
             or item.get('institution')
             or ''
         )
-        url = item.get('url')
-        if not url:
-            doi = item.get('doi', '').strip()
-            if doi:
-                url = doi if doi.startswith('http') else f'https://doi.org/{doi}'
-        if not url:
-            url = item.get('bdsk-url-1') or item.get('bdsk-url-2') or ''
-        if not url and pdf_dir:
-            key = slugify_key(item.get('key', ''))
-            if key:
-                local_pdf = pdf_dir / f'{key}.pdf'
-                if local_pdf.exists():
-                    url = f'static/papers/{local_pdf.name}'
+        raw_url = (item.get('url') or '').strip()
+        doi = item.get('doi', '').strip()
+        doi_url = ''
+        if doi:
+            doi_url = doi if doi.startswith('http') else f'https://doi.org/{doi}'
+        candidates = [
+            raw_url,
+            doi_url,
+            item.get('bdsk-url-1') or '',
+            item.get('bdsk-url-2') or '',
+        ]
+        url = ''
+        pdf_url = ''
+        for candidate in candidates:
+            if not candidate:
+                continue
+            if is_pdf_url(candidate):
+                if not pdf_url:
+                    pdf_url = candidate
+            elif not url:
+                url = candidate
+        local_pdf = resolve_pdf_url(item, pdf_index, pdf_map)
+        if local_pdf:
+            pdf_url = local_pdf
+        if url and pdf_url and url == pdf_url:
+            url = ''
         volume = item.get('volume', '')
         number = item.get('number', '')
         pages = item.get('pages', '')
@@ -313,6 +380,7 @@ def build_publication_list(entries, pdf_dir: Path | None = None):
             'type': etype,
             'key': item.get('key', ''),
             'url': url,
+            'pdf_url': pdf_url,
             'category': category,
         })
     return display_items
@@ -381,7 +449,8 @@ def generate_site():
     # load BibTeX
     bib_path = data_dir / 'vita.bib'
     entries = parse_bibtex(bib_path) if bib_path.exists() else []
-    pub_entries = build_publication_list(entries, pdf_dir=base_dir / 'static' / 'papers')
+    pdf_map = load_pdf_map(data_dir / 'publication_pdfs.yaml')
+    pub_entries = build_publication_list(entries, pdf_dir=base_dir / 'static' / 'papers', pdf_map=pdf_map)
     # load projects and courses
     current_projects, backburner_projects, software_projects = load_projects(data_dir / 'projects.yaml')
     courses = load_courses(data_dir / 'teaching.yaml')
