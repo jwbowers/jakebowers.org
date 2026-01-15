@@ -30,6 +30,8 @@ so that an AI coding assistant (Codex, Copilot, etc.) can safely maintain it.
   - Front-page biography text.
 - `data/config.yaml`
   - Site and author name.
+- `data/publication_pdfs.yaml`
+  - Map BibTeX keys to local PDF filenames in `static/papers`.
 
 ### Templates
 
@@ -69,5 +71,4 @@ After **any change** to data, templates, or CSS:
 ```bash
 python generate_site.py
 ```
-
 
