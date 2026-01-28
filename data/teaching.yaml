@@ -1,3 +1,15 @@
+
+- term: Spring 2026
+  courses:
+    - title: "Causal Inference"
+      url: https://static.jakebowers.org/MISC/ps531s26_causal.pdf
+      description: "Second-term statistics course for political science PhD students focusing on causal inference including randomization-based inference for experiments, modern debates about pre-post designs (including two-way fixed effects and panel data), instrumental variables, and modern approaches to optimal stratification via matching."
+    - title: "Research Design for Political Science PhD Students"
+      url: https://static.jakebowers.org/MISC/ps522s26.pdf
+      description: ""
+    - title: "The First Year Research Paper Workshop for Political Science PhD Students"
+
+
 - term: Fall 2025
   courses:
     - title: "Future Politics"
