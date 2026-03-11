@@ -54,6 +54,24 @@ Single-script static site generator following an MVC-like pattern:
 
 Generated pages: `index.html`, `publications.html`, `projects.html`, `teaching.html`, `future-politics.html`
 
+## Static File Hosting (AWS S3)
+
+PDFs and other static files (syllabi, vita, etc.) are served from the S3 bucket `static.jakebowers.org`, accessible at `https://static.jakebowers.org/`. The site templates link to these URLs directly (not to files in this repo).
+
+**Uploading files — always include `--acl public-read`:**
+```bash
+aws s3 cp <local-file> s3://static.jakebowers.org/MISC/<filename> --acl public-read
+```
+
+For example, to update the vita:
+```bash
+aws s3 cp ~/repos/vita/bowers-vita.pdf s3://static.jakebowers.org/MISC/bowers-vita.pdf --acl public-read
+```
+
+The bucket has no bucket policy — public access is controlled per-object via ACLs. **Without `--acl public-read`, uploaded files will be private and return 403 Forbidden errors.**
+
+Note: `data/config.yaml` has a `vita_pdf` field, but it is not currently used by the templates. The S3 URL is hardcoded in `templates/layout.html` and `templates/index.html`.
+
 ## Testing
 
 No automated test suite. Manual verification:
