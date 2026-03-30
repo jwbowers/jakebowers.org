@@ -103,10 +103,18 @@ def safe_year(year_value: str) -> int:
     return int(digits) if digits else 0
 
 
+def flip_author_name(name: str) -> str:
+    """Convert 'Last, First' to 'First Last'. Pass through 'First Last' unchanged."""
+    if ',' in name:
+        last, first = name.split(',', 1)
+        return f'{first.strip()} {last.strip()}'
+    return name
+
+
 def format_authors(author_field: str) -> str:
     if not author_field:
         return ''
-    parts = [part.strip() for part in author_field.split(' and ') if part.strip()]
+    parts = [flip_author_name(p.strip()) for p in author_field.split(' and ') if p.strip()]
     if len(parts) <= 1:
         return parts[0] if parts else ''
     if len(parts) == 2:
