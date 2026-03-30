@@ -373,6 +373,7 @@ def build_publication_list(entries, pdf_dir: Path | None = None, pdf_map: dict[s
             category = 'essay'
         else:
             category = 'other'
+        replication_url = (item.get('replication-url') or '').strip()
         display_items.append({
             'authors': authors,
             'title': title,
@@ -389,6 +390,7 @@ def build_publication_list(entries, pdf_dir: Path | None = None, pdf_map: dict[s
             'key': item.get('key', ''),
             'url': url,
             'pdf_url': pdf_url,
+            'replication_url': replication_url,
             'category': category,
         })
     return display_items
