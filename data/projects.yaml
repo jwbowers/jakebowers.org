@@ -9,9 +9,9 @@ current:
       - name: Luke Miratrix
         url: https://www.gse.harvard.edu/directory/faculty/luke-miratrix
 
-  - title: "Powerful Detection of Effects in Block-Randomized Experiments by Testing Hypotheses in Order"
+  - title: "Detecting Where Effects Occur by Testing Hypotheses in Order"
     description: |
-      Joint work with Nuole Chen and David Kim, including the manytestsr R package. We present a method based on the Sequential Intersection Union Principle and energy or distance test statistics to detect where policy effects appear in block-randomized experiments while controlling family-wise error. We compare to block-by-block testing with p-value adjustment and show improved power in simulations and 25 education trials. In preparation.
+      Joint work with Nuole Chen and David Kim, including the manytestsr R package. Experimental evaluations of public policies often randomize a new intervention within many sites or blocks. After a report of an overall result---statistically significant or not---the natural question from a policy maker is: where did any effects occur? Standard adjustments for multiple testing provide little power to answer this question. In simulations modeled after a 44-block education trial, the Hommel adjustment---among the most powerful procedures controlling the family-wise error rate (FWER)---detects effects in only 11% of truly non-null blocks. We develop a procedure that tests hypotheses top-down through a tree: test the overall null at the root, then groups of blocks, then individual blocks, stopping any branch where the null is not rejected. In the same 44-block design, this approach detects effects in 44% of non-null blocks---roughly four times the detection rate. A stopping rule and valid tests at each node suffice for weak FWER control. We show that the strong-sense FWER depends on how rejection probabilities accumulate along paths through the tree. This yields a diagnostic: when power decays fast enough relative to branching, no adjustment is needed; otherwise, an adaptive alpha-adjustment restores control. We apply the method to 25 MDRC education trials and provide an R package, manytestsr.
     url: https://arxiv.org/abs/2602.21068
     coauthors:
       - name: Nuole Chen
@@ -21,7 +21,7 @@ current:
 
   - title: "Randomization Tests for Distributions of Individual Treatment Effects Combining Multiple Rank Statistics"
     description: |
-      Joint work with Xinran Li, David Kim, and Yongchang Su. We develop a combined Stephenson rank test that avoids choosing a single subset size, controls false positives, and improves power for concentrated effects and outliers. We derive permutation distributions for randomized studies with and without blocks. In preparation.
+      Joint work with Xinran Li, David Kim, and Yongchang Su. What proportion of treated units actually benefited from an experimental intervention? What was the largest treatment effect? This paper develops methods to answer questions about distributions of individual causal effects in randomized experiments. Existing rank-based approaches require the analyst to choose a tuning parameter before seeing the data. Choosing wrong costs power. Searching across multiple tests for a tuning parameter and then correcting for multiplicity also sacrifices power. This paper presents inference procedures that adaptively combine multiple rank statistics while preserving finite-sample validity. For stratified experiments, we develop weighting strategies that aggregate evidence across strata of varying sizes. The combined test matches or beats the best individual test---without requiring the analyst to know the best tuning parameter in advance. When applied to a randomized experiment evaluating teacher training, the combined test suggests that roughly half of treated teachers benefited, while a single rank test could suggest only a small minority did. The choice of test determined whether the program appeared broadly successful or narrowly effective.
     url: null
     coauthors:
       - name: Xinran Li
@@ -30,6 +30,15 @@ current:
         url: https://stat.illinois.edu/directory/profile/davidk9
       - name: Yongchang Su
         url: https://www.linkedin.com/in/yongchang-su-367a3a237/
+
+  - title: "Fully Specified Bayes Factors for Hypothesis Testing in Qualitative Research"
+    description: |
+      Joint work with Matias Lopez and Daniel Gajardo Cooper. We enhance the use of Bayes Factors for hypothesis testing in case-studies and process tracing by proposing two generative models of how evidence was produced. The researcher classifies each observation as favoring one theory or the other---a directional judgment, not a magnitude judgment---and a probability model supplies the rest. We provide two models: a binomial model for open-ended research designs where the evidence base could always grow, and a hypergeometric urn model for bounded archives where the researcher has examined a substantial fraction of what exists. We develop a decision threshold grounded in the e-values literature and a sensitivity analysis that answers a concrete question---how many observations would the researcher need to have miscoded to overturn the finding? We illustrate with competing explanations for Weimar Germany's democratic collapse and provide a companion R package, DrBristol. In preparation.
+    url: null
+    coauthors:
+      - name: Matias Lopez
+        url: https://matiaslopezuy.wixsite.com/matiaslopez
+      - name: Daniel Gajardo Cooper
 
   - title: "Experimental Reasoning in Process Tracing: A Method for Calculating P-Values for Qualitative Causal Inference"
     description: |
