@@ -12,7 +12,7 @@ current:
   - title: "Powerful Detection of Effects in Block-Randomized Experiments by Testing Hypotheses in Order"
     description: |
       Joint work with Nuole Chen and David Kim, including the manytestsr R package. We present a method based on the Sequential Intersection Union Principle and energy or distance test statistics to detect where policy effects appear in block-randomized experiments while controlling family-wise error. We compare to block-by-block testing with p-value adjustment and show improved power in simulations and 25 education trials. In preparation.
-    url: null
+    url: https://arxiv.org/abs/2602.21068
     coauthors:
       - name: Nuole Chen
         url: https://mitgovlab.org/people/nuole-lula-chen/
@@ -34,7 +34,7 @@ current:
   - title: "Experimental Reasoning in Process Tracing: A Method for Calculating P-Values for Qualitative Causal Inference"
     description: |
       Joint work with Matias Lopez. We adapt Fisher's urn model to qualitative process tracing to compute p-values for evidence supporting one theory over another. The method includes sensitivity analysis for observation bias and a framework for weighing evidence strength, illustrated with simulations and replications. Under review.
-    url: null
+    url: https://arxiv.org/abs/2310.13826
     coauthors:
       - name: Matias Lopez
         url: https://matiaslopezuy.wixsite.com/matiaslopez
