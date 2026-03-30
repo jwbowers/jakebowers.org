@@ -1,16 +1,14 @@
 # Handoff Summary
 
 **Date:** 2026-03-30
-**Session focus:** Four tasks -- (1) syncing vita.bib between repos, (2) uploading updated causal inference syllabus, (3) setting up Cloudflare cache purging, (4) updating project descriptions on the site
+**Session focus:** Move non-PDF static files out of git and onto S3, add replication archive links to publications page.
 
 ## Key Decisions
 
-- **`~/repos/vita/vita.bib` is the authoritative BibTeX file.** The site's `data/vita.bib` should be a copy of it. When the vita repo version is updated, copy it over and regenerate.
-- The vita repo uses `Last, First` author name format (BibDesk convention). The site's `format_authors()` was updated to detect and flip this to `First Last` for display.
-- Before copying the vita repo version over, we backfilled four items from the site's version that were missing from the vita repo.
-- Syllabus PDFs are uploaded to S3, not stored in this repo. The teaching page links to S3 URLs directly.
-- **Cloudflare sits in front of `static.jakebowers.org`.** After uploading files to S3, the Cloudflare cache must be purged or you'll keep seeing the old version (default TTL is 2 hours). A purge script was added to `scripts/purge-cache.sh`.
-- **Project descriptions should use paper abstracts** rather than ad-hoc summaries. For the manytests and combined Stephenson papers, the abstract was pulled from `abstract.tex`. For the fully specified BF paper, the abstract was pulled from `Paper/abstract.md` (the user dislikes the current `.tex` abstract; `abstract.md` was written for the website).
+- **Non-PDF archives in `static/papers/` belong on S3, not in git.** They were uploaded to `s3://static.jakebowers.org/papers/` with `--acl public-read` and removed from git tracking. The `.gitignore` now excludes `*.tar.gz`, `*.tgz`, `*.zip`, and `*.rnw` from `static/papers/`.
+- **Two `paper-archive` tarballs were both replication archives for Hansen & Bowers 2009 JASA.** We kept the newer one (Sept 26, 2008) and deleted the older one (Sept 3, 2008) from disk entirely.
+- **Replication archives should be linked from the publications page.** A new `replication-url` BibTeX field was added to the relevant entries, and the site generator and template were updated to render `[replication]` links alongside existing `[link]` and `[pdf]` links.
+- **The 99 PDF files in `static/papers/` remain tracked in git for now.** Moving them to S3 is the logical next step but was deferred to a future session.
 
 ## Files Changed and Why
 
@@ -18,75 +16,60 @@
 
 | File | Change |
 |------|--------|
-| `data/vita.bib` | Replaced with copy from `~/repos/vita/vita.bib` (after backfilling missing content). Committed and pushed. |
-| `generate_site.py` | Added `flip_author_name()` helper (lines ~106--111) that converts `Last, First` to `First Last`. Committed and pushed. |
-| `data/projects.yaml` | Three updates: (1) "Detecting Where Effects Occur" -- title updated to match paper, description replaced with abstract from `~/repos/manytests-paper/Paper/abstract.tex`. (2) "Randomization Tests for Distributions" -- description replaced with abstract from `~/repos/combined_stephenson_tests/abstract.tex`. (3) **New entry:** "Fully Specified Bayes Factors for Hypothesis Testing in Qualitative Research" -- added above the Lopez & Bowers p-values paper, description from `~/repos/fully_specified_bf/Paper/abstract.md`. **Not yet committed.** |
-| `publications.html` | Regenerated. Committed and pushed. |
-| `projects.html` | Regenerated from updated projects.yaml. **Not yet committed.** |
-| `scripts/purge-cache.sh` | **New file.** Purges Cloudflare cache for URLs on `static.jakebowers.org`. Requires `CLOUDFLARE_PURGE_TOKEN` env var. **Not yet committed.** |
+| `data/vita.bib` | Added `replication-url` field to 4 entries: `hansenbowers2009att` (JASA), `bowers2005eda` (EDA for HLM), `bowers2004tpm` (TPM), `bowers2011mem` (Making Effects Manifest). |
+| `generate_site.py` | Added extraction of `replication-url` from BibTeX entries and passes `replication_url` through to publication display items (~line 376). |
+| `templates/publications.html` | Added `[replication]` link rendering after `[pdf]` link (line 50). |
+| `publications.html` | Regenerated. Four publications now show `[replication]` links. |
+| `.gitignore` | Added `__pycache__/` and non-PDF archive patterns under `static/papers/`. |
+| `static/papers/` | 6 files removed from git tracking via `git rm --cached`: `ManifestEffects_1.0.tar.gz`, `bowersTPM.rnw`, `bowersTPM.zip`, `bowersdrakesource.tar.gz`, `paper-archive-20080903.tgz`, `paper-archive-20080926.tar.gz`. |
 
-### In the vita repo (`~/repos/vita`)
+### On S3 (`static.jakebowers.org/papers/`)
 
-| File | Change |
+| S3 key | Source file | Paper |
+|--------|-------------|-------|
+| `papers/bowershansen2008JASA-replication.tar.gz` | `paper-archive-20080926.tar.gz` | Hansen & Bowers 2009, JASA |
+| `papers/bowers2005eda-replication.tar.gz` | `bowersdrakesource.tar.gz` | Bowers & Drake 2005, "EDA for HLM" |
+| `papers/bowers2004tpm-replication.zip` | `bowersTPM.zip` | Bowers 2004, "Using R to Keep it Simple" (TPM) |
+| `papers/bowers2004tpm.rnw` | `bowersTPM.rnw` | Source `.rnw` for same TPM paper |
+| `papers/ManifestEffects_1.0.tar.gz` | `ManifestEffects_1.0.tar.gz` | Bowers 2011, "Making Effects Manifest" (R package) |
+
+### Deleted from disk
+
+| File | Reason |
 |------|--------|
-| `vita.bib` | Added 4 items that existed in the site's copy but were missing: (1) `uva2026future` entry (UVA School of Data Science talk, March 2026), (2) DOI for `zomba2025scid` (Grady et al.), (3) DOI for `wong2025maps` (Wong et al.), (4) URL for `yokum2024ap` (Yokum & Bowers). Also fixed typo "Virgina" to "Virginia". **Not committed.** |
-
-### On S3 (`static.jakebowers.org`)
-
-| S3 path | Change |
-|---------|--------|
-| `MISC/ps531s26_causal.pdf` | Replaced with updated syllabus from `~/repos/CLASSES/531-causal-inference-syllabus/syllabus.pdf` (dated 2026-03-25). Uploaded with `--acl public-read`. Cloudflare cache purged and verified (MD5 match confirmed). |
+| `static/papers/paper-archive-20080903.tgz` (62MB) | Older duplicate of the JASA replication archive; the Sept 26 version was kept. |
 
 ## What's Done
 
-- Backfilled missing DOIs, URLs, and the `uva2026future` entry into `~/repos/vita/vita.bib`
-- Copied updated vita.bib to `data/vita.bib`
-- Updated `format_authors()` to handle `Last, First` author format
-- Regenerated site and verified output (42 author names render correctly)
-- Committed and pushed vita.bib and generate_site.py changes
-- Uploaded updated causal inference syllabus PDF to S3
-- Installed Cloudflare wrangler CLI (`brew install cloudflare-wrangler2`), logged in via `wrangler login`
-- Created `scripts/purge-cache.sh` for cache purging
-- Successfully purged Cloudflare cache for the syllabus PDF and verified the new version is served
-- Updated project descriptions in `data/projects.yaml`:
-  - "Detecting Where Effects Occur by Testing Hypotheses in Order" -- title and description updated from `~/repos/manytests-paper/Paper/abstract.tex`
-  - "Randomization Tests for Distributions of Individual Treatment Effects" -- description updated from `~/repos/combined_stephenson_tests/abstract.tex`
-  - "Fully Specified Bayes Factors for Hypothesis Testing in Qualitative Research" -- new entry, description from `~/repos/fully_specified_bf/Paper/abstract.md`
-- Regenerated site after each projects.yaml change
+- Uploaded 5 non-PDF files to S3 with `--acl public-read`
+- Added `replication-url` BibTeX field to 4 publications
+- Updated generator and template to render `[replication]` links
+- Regenerated site and verified all 4 replication links appear
+- Removed all 6 non-PDF files from git tracking
+- Updated `.gitignore` to prevent re-adding
+- Deleted older duplicate archive from disk
+- Committed all changes (commit `8d10203`)
 
 ## What Remains
 
-- **`data/projects.yaml`, `projects.html`, `scripts/purge-cache.sh`, and `HANDOFF.md` are not yet committed** in this repo.
-- **`~/repos/vita/vita.bib` has uncommitted changes** (the 4 backfilled items).
-- **`CLOUDFLARE_PURGE_TOKEN` needs to be added to the user's shell profile** (e.g., `~/.zshrc`) for the purge script to work in future sessions.
-- **The Cloudflare API token should be rotated** -- it was pasted into this conversation. Go to https://dash.cloudflare.com/profile/api-tokens, delete the current token, create a new one with the same "Purge Cache" permissions for `jakebowers.org`, and update `CLOUDFLARE_PURGE_TOKEN`.
+- **99 PDF files (~180MB) are still tracked in git under `static/papers/`.** The plan is to move these to S3 as well, following the same pattern. This requires:
+  1. Uploading all PDFs to `s3://static.jakebowers.org/papers/`
+  2. Changing `resolve_pdf_url()` in `generate_site.py` to return `https://static.jakebowers.org/papers/{match}` instead of `static/papers/{match}`
+  3. Updating `is_pdf_url()` to recognize S3 URLs (it already checks `.pdf` extension, so the `'static/papers/' in lowered` check can be removed)
+  4. Running `git rm --cached` on all PDFs and adding `static/papers/*.pdf` to `.gitignore`
+  5. Regenerating the site
+- **Git history still contains the removed binaries.** Clone size won't shrink until history is rewritten (e.g., `git filter-repo`). This is a separate, more invasive step.
+- **From previous session (may still be pending):** `data/projects.yaml`, `projects.html`, `scripts/purge-cache.sh`, and prior `HANDOFF.md` changes may not have been committed. Check `git status`.
+- **`~/repos/vita/vita.bib` may have uncommitted changes** (4 backfilled items from the previous session).
 
 ## Current Blockers / Open Questions
 
-- **BibTeX key mismatch:** The site's old copy used `rabb2021pnas` for the Rabb et al. PNAS paper; the vita repo uses `rabb2021no` for the same entry. Since nothing in the site code references entries by key (it filters by keywords), this is harmless. But if anything ever does key-based lookups, this difference could matter.
+- None for the completed work. The PDF migration is straightforward but deferred by user preference.
 
 ## Important Context to Preserve
 
-- **Vita source repo:** `~/repos/vita/` -- contains LaTeX source (`bowers-vita.tex`), compiled PDF, and `vita.bib`.
-- **Workflow for vita.bib updates:** Edit `~/repos/vita/vita.bib` as the single source of truth, then `cp ~/repos/vita/vita.bib data/vita.bib` and `uv run python generate_site.py` to update the site.
-- **Author format convention:** The vita repo uses `Last, First` (BibDesk default). The site's `flip_author_name()` handles conversion. Both `First Last` and `Last, First` inputs work -- the function checks for a comma.
-- **Project description sources:** Abstracts for project blurbs come from paper repos:
-  - Manytests: `~/repos/manytests-paper/Paper/abstract.tex`
-  - Combined Stephenson: `~/repos/combined_stephenson_tests/abstract.tex`
-  - Fully specified BF: `~/repos/fully_specified_bf/Paper/abstract.md`
-- **Cloudflare caching:** `static.jakebowers.org` is proxied through Cloudflare (Zone ID: `00d57633940d082931a9137e7185e73a`). After any S3 upload, purge the cache:
-  ```bash
-  ./scripts/purge-cache.sh MISC/filename.pdf
-  ```
-- **Workflow for uploading static files to S3** (always include `--acl public-read`, then purge cache):
-  ```bash
-  # Syllabus
-  aws s3 cp ~/repos/CLASSES/531-causal-inference-syllabus/syllabus.pdf s3://static.jakebowers.org/MISC/ps531s26_causal.pdf --acl public-read
-  ./scripts/purge-cache.sh MISC/ps531s26_causal.pdf
-
-  # Vita PDF
-  aws s3 cp ~/repos/vita/bowers-vita.pdf s3://static.jakebowers.org/MISC/bowers-vita.pdf --acl public-read
-  ./scripts/purge-cache.sh MISC/bowers-vita.pdf
-  ```
-- The bucket `static.jakebowers.org` has no bucket policy -- public access is controlled per-object via ACLs. Without `--acl public-read`, uploaded files will be private and return 403 errors.
-- **Wrangler CLI** is installed (`brew install cloudflare-wrangler2`) and authenticated via OAuth. The OAuth token does NOT have cache purge permissions -- that's why the separate API token (`CLOUDFLARE_PURGE_TOKEN`) is needed.
+- **S3 bucket:** `static.jakebowers.org` -- no bucket policy, public access is per-object via `--acl public-read`. Without this flag, uploads return 403.
+- **Cloudflare caching:** The bucket is proxied through Cloudflare (Zone ID: `00d57633940d082931a9137e7185e73a`). After uploading to S3, purge the cache with `./scripts/purge-cache.sh <path>`.
+- **Replication URL convention:** Uses the BibTeX field `replication-url`. The generator reads it as `item.get('replication-url')` and passes it as `replication_url` to the template. To add replication links to more papers, just add `replication-url = {https://static.jakebowers.org/papers/filename}` to the BibTeX entry.
+- **File naming on S3:** Replication archives were renamed to `{bibtex-key}-replication.{ext}` for clarity, except `ManifestEffects_1.0.tar.gz` which kept its original name (it's an R package).
+- **Vita source repo:** `~/repos/vita/` is the authoritative source for `vita.bib`. After editing it there, copy to `data/vita.bib` and regenerate.
