@@ -1,1 +1,8 @@
 .DS_Store
+__pycache__/
+
+# Non-PDF archives in static/papers/ are hosted on S3
+static/papers/*.tar.gz
+static/papers/*.tgz
+static/papers/*.zip
+static/papers/*.rnw
