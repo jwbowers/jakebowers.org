@@ -86,155 +86,127 @@
 - term: Spring 2018
   courses:
     - title: "Statistical Inference: Linear Models, Descriptive, Causal and Statistical Inference"
-      url: https://www.jakebowers.org/PS531/syllabus.pdf
+      url: https://static.jakebowers.org/MISC/ps531syl_archive.pdf
 
 - term: Fall 2017
   courses:
     - title: "Introduction to Statistics for Political Scientists"
-      url: https://www.jakebowers.org/PS230/syllabus.pdf
+      url: https://static.jakebowers.org/MISC/ps230syl_archive.pdf
 
 - term: Spring 2017
   courses:
     - title: "Introduction to Statistics for Political Scientists"
-      url: https://www.jakebowers.org/PS230/syllabus.pdf
+      url: https://static.jakebowers.org/MISC/ps230syl_archive.pdf
     - title: "Statistical Inference: Linear Models, Descriptive, Causal and Statistical Inference"
-      url: https://www.jakebowers.org/PS531/syllabus.pdf
+      url: https://static.jakebowers.org/MISC/ps531syl_archive.pdf
 
 - term: Fall 2016
   courses:
     - title: "Introduction to Applied Statistics in Political Science: Description, Comparison, Estimation, Inference"
-      url: https://www.jakebowers.org/PS530/syllabus.pdf
+      url: https://static.jakebowers.org/MISC/ps530syl_archive.pdf
     - title: "Statistical Inference: Linear Models, Descriptive, Causal and Statistical Inference"
 
 - term: Winter 2015
   courses:
     - title: "Lectures on Synthetic Matching, Survey Experiments, and Roundtable on Perspectives on Causality at the UC Escuela de Verano de Metodos Mixtos"
-      url: https://www.stateness.com/es/escuela-de-verano-metodos-mixtos/
 
 - term: Fall 2014
   courses:
     - title: "PS230 - Introduction to Statistics for Political Scientists"
-      url: https://www.jakebowers.org/PS230/ps230f14syl.pdf
+      url: https://static.jakebowers.org/MISC/ps230f14syl.pdf
 
 - term: Summer 2014
   courses:
     - title: "Experimentos de Campo"
-      url: https://www.jakebowers.org/experimentosdecamposyl2014.pdf
+      url: https://static.jakebowers.org/MISC/experimentosdecamposyl2014.pdf
     - title: "Matching for Adjustment and Causal Inference"
-      url: https://www.jakebowers.org/matchingUCU2014.pdf
+      url: https://static.jakebowers.org/MISC/matchingUCU2014.pdf
     - title: "Causal Inference in the Social Sciences (with Ben Hansen)"
-      url: https://www.jakebowers.org/causalinfICPSR2014.pdf
+      url: https://static.jakebowers.org/MISC/causalinfICPSR2014.pdf
 
 - term: Spring 2014
   courses:
     - title: "PS522 - Research Design (with Jim Kuklinski)"
-      url: https://www.jakebowers.org/PS522/PS522researchdesignspring2014.pdf
+      url: https://static.jakebowers.org/MISC/PS522researchdesignspring2014.pdf
     - title: "PS531 - Linear Models and Statistical Inference"
-      url: https://www.jakebowers.org/PS531S14/ps531s14syl.pdf
+      url: https://static.jakebowers.org/MISC/ps531s14syl.pdf
     - title: "PS300 - Future Politics (Science Fiction and Political Theory)"
-      url: https://www.jakebowers.org/PS300S14/ps300s14syl.pdf
+      url: https://static.jakebowers.org/MISC/ps300s14syl.pdf
 
 - term: Fall 2013
   courses:
     - title: "PS230 - Introduction to Statistics for Political Scientists"
-      url: https://www.jakebowers.org/PS230/ps230f13syl.pdf
+      url: https://static.jakebowers.org/MISC/ps230f13syl.pdf
     - title: "PS300 - Research Workshop on Political Participation"
-      url: https://www.jakebowers.org/PS300F13/ps300f13syl.pdf
+      url: https://static.jakebowers.org/MISC/ps300f13syl.pdf
 
 - term: Spring 2013
   courses:
     - title: "PS531 - Linear Models and Statistical Inference"
-      url: https://www.jakebowers.org/PS531/ps531s13syl.pdf
-      materials:
-        - label: "Final Paper Guide"
-          url: https://www.jakebowers.org/PS531/finalpaperguide.pdf
     - title: "PS300 - Future Politics (Science Fiction and Political, Social, and Economic Theory)"
-      url: https://www.jakebowers.org/PS300/ps300s13syl.pdf
+      url: https://static.jakebowers.org/MISC/ps300s13syl.pdf
 
 - term: Fall 2012
   courses:
     - title: "PS230 - Introduction to Statistics for Political Scientists"
-      url: https://www.jakebowers.org/PS230/ps230f12syl.pdf
-    - title: "PS590 - Political Experiments: Design and Analysis"
-      url: https://www.jakebowers.org/ps590-experiments-f12syl.pdf
-      materials:
-        - label: "Co-designed with Corrine McConnaughy"
-          url: https://polisci.osu.edu/faculty/mcconnaughy.3/index.htm
-        - label: "iTV course"
-          url: http://psweb.sbs.ohio-state.edu/faculty/jbox/ITV/ITVHome.html
+      url: https://static.jakebowers.org/MISC/ps230f12syl.pdf
+    - title: "PS590 - Political Experiments: Design and Analysis (co-designed with Corrine McConnaughy)"
+      url: https://static.jakebowers.org/MISC/ps590-experiments-f12syl.pdf
 
 - term: Spring 2012
   courses:
     - title: "PS531 - Linear Models and Statistical Inference"
-      url: https://www.jakebowers.org/PS531/ps531s12syl.pdf
-      materials:
-        - label: "Final Paper Guide"
-          url: https://www.jakebowers.org/PS531/finalpaperguide.pdf
     - title: "PS300 - Future Politics (Science Fiction and Political, Social, and Economic Theory)"
-      url: https://www.jakebowers.org/PS300/ps300s12syl.pdf
+      url: https://static.jakebowers.org/MISC/ps300s12syl.pdf
 
 - term: Fall 2011
   courses:
     - title: "PS230 - Introduction to Statistics for Political Scientists"
-      url: https://www.jakebowers.org/PS230/ps230f11syl.pdf
+      url: https://static.jakebowers.org/MISC/ps230f11syl.pdf
     - title: "PS590 - Potential Outcomes, Matching, and Causal Inference"
-      url: https://www.jakebowers.org/ps590f11syl.pdf
+      url: https://static.jakebowers.org/MISC/ps590f11syl.pdf
       materials:
-        - label: "iTV course"
-          url: http://psweb.sbs.ohio-state.edu/faculty/jbox/ITV/ITVHome.html
         - label: "Final Paper Guide"
-          url: https://www.jakebowers.org/PS590/finalpaperguide.pdf
+          url: https://static.jakebowers.org/MISC/ps590_finalpaperguide.pdf
 
 - term: Spring 2011
   courses:
     - title: "PS531 - Linear Models and Statistical Inference"
-      url: https://www.jakebowers.org/ps531s11syl.pdf
-      materials:
-        - label: "Final Paper Guide"
-          url: https://www.jakebowers.org/PS531/finalpaperguide.pdf
+      url: https://static.jakebowers.org/MISC/ps531s11syl.pdf
     - title: "PS230 - Introduction to Statistics for Political Science Majors"
-      url: https://www.jakebowers.org/PS230/ps230s11syl.pdf
+      url: https://static.jakebowers.org/MISC/ps230s11syl.pdf
 
 - term: Fall 2010
   courses:
     - title: "PS300 - Future Politics (Science Fiction and Political, Social, and Economic Theory)"
-      url: https://www.jakebowers.org/ps300f10syl.pdf
+      url: https://static.jakebowers.org/MISC/ps300f10syl.pdf
 
 - term: Spring 2010
   courses:
     - title: "PS531 - Linear Models and Statistical Inference"
-      url: https://www.jakebowers.org/ps531s10syl.pdf
+      url: https://static.jakebowers.org/MISC/ps531s10syl.pdf
 
 - term: Spring 2009
   courses:
     - title: "PS230 - Introduction to Statistics"
-      url: https://www.jakebowers.org/PS230/ps230s09syl.pdf
+      url: https://static.jakebowers.org/MISC/ps230s09syl.pdf
     - title: "PS499 - Future Politics (Science Fiction and Political, Social, and Economic Theory)"
-      url: https://www.jakebowers.org/ps499s09syl.pdf
+      url: https://static.jakebowers.org/MISC/ps499s09syl.pdf
 
 - term: Fall 2007
   courses:
     - title: "PS532 - Quantitative Political Analysis II"
-      url: https://www.jakebowers.org/ps532.html
     - title: "PS590 - Potential Outcomes Inference"
-      url: https://www.jakebowers.org/ps590.html
-      materials:
-        - label: "iTV course"
-          url: http://psweb.sbs.ohio-state.edu/faculty/jbox/ITV/ITVHome.html
 
 - term: Winter 2005
   courses:
     - title: "PS688 - Applied Bayesian and Non-parametric Methods for Political Research"
-      url: https://www.jakebowers.org/ps688.html
     - title: "PS496 - Seminar on Political Participation"
-      url: https://www.jakebowers.org/ps496.html
 
 - term: Fall 2004
   courses:
     - title: "PS599 - Statistical Methods in Political Research"
-      url: https://www.jakebowers.org/ps599.html
     - title: "PS389 - Research Design and Data Analysis for Political Science"
-      url: https://www.jakebowers.org/ps389.html
 
 - term: Fall 2003
   courses:
