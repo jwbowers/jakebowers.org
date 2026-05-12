@@ -19,10 +19,10 @@ current:
       - name: David Kim
         url: https://stat.illinois.edu/directory/profile/davidk9
 
-  - title: "Randomization Tests for Distributions of Individual Treatment Effects Combining Multiple Rank Statistics"
+  - title: "Randomization Tests for Distributions of Individual Treatment Effects via Combined Rank Statistics"
     description: |
-      Joint work with Xinran Li, David Kim, and Yongchang Su. What proportion of treated units actually benefited from an experimental intervention? What was the largest treatment effect? This paper develops methods to answer questions about distributions of individual causal effects in randomized experiments. Existing rank-based approaches require the analyst to choose a tuning parameter before seeing the data. Choosing wrong costs power. Searching across multiple tests for a tuning parameter and then correcting for multiplicity also sacrifices power. This paper presents inference procedures that adaptively combine multiple rank statistics while preserving finite-sample validity. For stratified experiments, we develop weighting strategies that aggregate evidence across strata of varying sizes. The combined test matches or beats the best individual test---without requiring the analyst to know the best tuning parameter in advance. When applied to a randomized experiment evaluating teacher training, the combined test suggests that roughly half of treated teachers benefited, while a single rank test could suggest only a small minority did. The choice of test determined whether the program appeared broadly successful or narrowly effective.
-    url: null
+      Joint work with David Kim, Yongchang Su, and Xinran Li. What proportion of treated units actually benefited from an experimental intervention? What is the median or the largest individual treatment effect? This paper develops methods for answering such questions about the distribution of individual causal effects in randomized experiments. Existing approaches require the analyst to select a rank-based test statistic before observing the data. A poor choice can substantially reduce power, while searching over multiple test statistics and adjusting for multiplicity using Bonferroni correction also incurs power loss. We propose inference procedures that adaptively combine multiple rank-based statistics while maintaining finite-sample validity. For stratified experiments, we further develop weighting schemes that effectively aggregate evidence across strata of heterogeneous sizes. The resulting combined test achieves power comparable to, or exceeding, that of the best individual test, without requiring prior knowledge of the optimal statistic. When applied to a randomized experiment evaluating a teacher training program, the combined test suggests that roughly half of treated teachers benefited, whereas a single rank-based test may indicate only a small minority. Thus, the choice of test determined whether the program appears broadly successful or narrowly effective.
+    url: https://arxiv.org/abs/2605.08027
     coauthors:
       - name: Xinran Li
         url: https://stat.uchicago.edu/people/profile/xinran-li/
@@ -101,5 +101,7 @@ software:
     description: |
       R package for conducting randomization inference for quantiles of
       individual treatment effects, using combined rank sum statistics, both
-      for completely randomized and stratified randomized experiments
+      for completely randomized and stratified randomized experiments.
+      Companion to Kim, Su, Bowers, and Li,
+      [Randomization Tests for Distributions of Individual Treatment Effects via Combined Rank Statistics](https://arxiv.org/abs/2605.08027).
     url: https://bowers-illinois-edu.github.io/CMRSS/
