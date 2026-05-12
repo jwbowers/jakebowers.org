@@ -399,9 +399,13 @@ def build_publication_list(entries, pdf_dir: Path | None = None, pdf_map: dict[s
 def load_projects(projects_path: Path):
     """Load projects YAML and return structured lists for templates."""
     data = yaml.safe_load(projects_path.read_text(encoding='utf-8')) if projects_path.exists() else {}
-    current = data.get('current', [])
-    backburner = data.get('backburner', [])
-    software = data.get('software', [])
+    current = data.get('current') or []
+    backburner = data.get('backburner') or []
+    software = data.get('software') or []
+    for group in (current, backburner, software):
+        for proj in group:
+            if proj.get('description'):
+                proj['description'] = render_markdown_links(proj['description'])
     return current, backburner, software
 
 
@@ -410,13 +414,14 @@ def load_courses(courses_path: Path):
     return yaml.safe_load(courses_path.read_text(encoding='utf-8')) if courses_path.exists() else []
 
 
+def render_markdown_links(value: str) -> str:
+    return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', value)
+
+
 def render_markdown(text: str) -> str:
     """Render a small Markdown subset (headings + links) to HTML."""
     if not text:
         return ''
-
-    def render_markdown_links(value: str) -> str:
-        return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', value)
 
     blocks = [block.strip() for block in text.strip().split('\n\n') if block.strip()]
     html_blocks = []

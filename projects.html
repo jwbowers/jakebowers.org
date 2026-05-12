@@ -98,9 +98,9 @@
     </li>
     
     <li class="project">
-      <strong>Randomization Tests for Distributions of Individual Treatment Effects Combining Multiple Rank Statistics</strong>
-      
-      <p>Joint work with Xinran Li, David Kim, and Yongchang Su. What proportion of treated units actually benefited from an experimental intervention? What was the largest treatment effect? This paper develops methods to answer questions about distributions of individual causal effects in randomized experiments. Existing rank-based approaches require the analyst to choose a tuning parameter before seeing the data. Choosing wrong costs power. Searching across multiple tests for a tuning parameter and then correcting for multiplicity also sacrifices power. This paper presents inference procedures that adaptively combine multiple rank statistics while preserving finite-sample validity. For stratified experiments, we develop weighting strategies that aggregate evidence across strata of varying sizes. The combined test matches or beats the best individual test---without requiring the analyst to know the best tuning parameter in advance. When applied to a randomized experiment evaluating teacher training, the combined test suggests that roughly half of treated teachers benefited, while a single rank test could suggest only a small minority did. The choice of test determined whether the program appeared broadly successful or narrowly effective.
+      <strong>Randomization Tests for Distributions of Individual Treatment Effects via Combined Rank Statistics</strong>
+      - <a href="https://arxiv.org/abs/2605.08027" class="project-link">[link]</a>
+      <p>Joint work with David Kim, Yongchang Su, and Xinran Li. What proportion of treated units actually benefited from an experimental intervention? What is the median or the largest individual treatment effect? This paper develops methods for answering such questions about the distribution of individual causal effects in randomized experiments. Existing approaches require the analyst to select a rank-based test statistic before observing the data. A poor choice can substantially reduce power, while searching over multiple test statistics and adjusting for multiplicity using Bonferroni correction also incurs power loss. We propose inference procedures that adaptively combine multiple rank-based statistics while maintaining finite-sample validity. For stratified experiments, we further develop weighting schemes that effectively aggregate evidence across strata of heterogeneous sizes. The resulting combined test achieves power comparable to, or exceeding, that of the best individual test, without requiring prior knowledge of the optimal statistic. When applied to a randomized experiment evaluating a teacher training program, the combined test suggests that roughly half of treated teachers benefited, whereas a single rank-based test may indicate only a small minority. Thus, the choice of test determined whether the program appears broadly successful or narrowly effective.
 </p>
       
       <p class="project-coauthors">
@@ -125,7 +125,7 @@
     <li class="project">
       <strong>Fully Specified Bayes Factors for Hypothesis Testing in Qualitative Research</strong>
       
-      <p>Joint work with Matias Lopez and Daniel Gajardo Cooper. We enhance the use of Bayes Factors for hypothesis testing in case-studies and process tracing by proposing two generative models of how evidence was produced. The researcher classifies each observation as favoring one theory or the other---a directional judgment, not a magnitude judgment---and a probability model supplies the rest. We provide two models: a binomial model for open-ended research designs where the evidence base could always grow, and a hypergeometric urn model for bounded archives where the researcher has examined a substantial fraction of what exists. We develop a decision threshold grounded in the e-values literature and a sensitivity analysis that answers a concrete question---how many observations would the researcher need to have miscoded to overturn the finding? We illustrate with competing explanations for Weimar Germany&#39;s democratic collapse and provide a companion R package, DrBristol. In preparation.
+      <p>Joint work with Matias Lopez and Daniel Gajardo Cooper. We enhance the use of Bayes Factors for hypothesis testing in case-studies and process tracing by proposing two generative models of how evidence was produced. The researcher classifies each observation as favoring one theory or the other---a directional judgment, not a magnitude judgment---and a probability model supplies the rest. We provide two models: a binomial model for open-ended research designs where the evidence base could always grow, and a hypergeometric urn model for bounded archives where the researcher has examined a substantial fraction of what exists. We develop a decision threshold grounded in the e-values literature and a sensitivity analysis that answers a concrete question---how many observations would the researcher need to have miscoded to overturn the finding? We illustrate with competing explanations for Weimar Germany's democratic collapse and provide a companion R package, DrBristol. In preparation.
 </p>
       
       <p class="project-coauthors">
@@ -146,7 +146,7 @@
     <li class="project">
       <strong>Experimental Reasoning in Process Tracing: A Method for Calculating P-Values for Qualitative Causal Inference</strong>
       - <a href="https://arxiv.org/abs/2310.13826" class="project-link">[link]</a>
-      <p>Joint work with Matias Lopez. We adapt Fisher&#39;s urn model to qualitative process tracing to compute p-values for evidence supporting one theory over another. The method includes sensitivity analysis for observation bias and a framework for weighing evidence strength, illustrated with simulations and replications. Under review.
+      <p>Joint work with Matias Lopez. We adapt Fisher's urn model to qualitative process tracing to compute p-values for evidence supporting one theory over another. The method includes sensitivity analysis for observation bias and a framework for weighing evidence strength, illustrated with simulations and replications. Under review.
 </p>
       
       <p class="project-coauthors">
@@ -254,7 +254,9 @@ randomization.
       - <a href="https://bowers-illinois-edu.github.io/CMRSS/" class="project-link">[code]</a>
       <p>R package for conducting randomization inference for quantiles of
 individual treatment effects, using combined rank sum statistics, both
-for completely randomized and stratified randomized experiments
+for completely randomized and stratified randomized experiments.
+Companion to Kim, Su, Bowers, and Li,
+<a href="https://arxiv.org/abs/2605.08027">Randomization Tests for Distributions of Individual Treatment Effects via Combined Rank Statistics</a>.
 </p>
     </li>
     

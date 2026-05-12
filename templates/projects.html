@@ -10,7 +10,7 @@
     <li class="project">
       <strong>{{ proj.title }}</strong>
       {% if proj.url %}- <a href="{{ proj.url }}" class="project-link">[link]</a>{% endif %}
-      <p>{{ proj.description }}</p>
+      <p>{{ proj.description|safe }}</p>
       {% if proj.coauthors %}
       <p class="project-coauthors">
         Co-authors:
@@ -35,7 +35,7 @@
     <li class="project">
       <strong>{{ proj.title }}</strong>
       {% if proj.url %}- <a href="{{ proj.url }}" class="project-link">[link]</a>{% endif %}
-      <p>{{ proj.description }}</p>
+      <p>{{ proj.description|safe }}</p>
     </li>
     {% endfor %}
   </ul>
@@ -48,7 +48,7 @@
     <li class="project">
       <strong>{{ proj.title }}</strong>
       {% if proj.url %}- <a href="{{ proj.url }}" class="project-link">[code]</a>{% endif %}
-      <p>{{ proj.description }}</p>
+      <p>{{ proj.description|safe }}</p>
     </li>
     {% endfor %}
   </ul>
