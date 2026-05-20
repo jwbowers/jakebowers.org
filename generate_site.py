@@ -419,13 +419,21 @@ def render_markdown_links(value: str) -> str:
 
 
 def render_markdown(text: str) -> str:
-    """Render a small Markdown subset (headings + links) to HTML."""
+    """Render a small Markdown subset (headings + lists + links) to HTML."""
     if not text:
         return ''
 
     blocks = [block.strip() for block in text.strip().split('\n\n') if block.strip()]
     html_blocks = []
     for block in blocks:
+        lines = [line.strip() for line in block.split('\n') if line.strip()]
+        if lines and all(line.startswith('- ') for line in lines):
+            items = ''.join(
+                f'<li>{render_markdown_links(line[2:].strip())}</li>'
+                for line in lines
+            )
+            html_blocks.append(f'<ul>{items}</ul>')
+            continue
         normalized = block.replace('\n', ' ').strip()
         normalized = render_markdown_links(normalized)
         heading_match = re.match(r'^(#{1,3})\s+(.*)$', normalized)
