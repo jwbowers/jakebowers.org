@@ -1,51 +1,57 @@
 # Handoff Summary
 
-**Date:** 2026-05-12
-**Session focus:** Add an arXiv link and updated abstract for the working paper "Randomization Tests for Distributions of Individual Treatment Effects via Combined Rank Statistics" on the projects page, cross-link the CMRSS software entry to the same paper, and enable markdown link rendering in project descriptions so the cross-link is clickable. Site regenerated, pushed, and live.
+**Date:** 2026-05-20
+**Session focus:** Rewrite the Future Politics page (`data/future_politics.md`) using Jake's style guide; collapse three weak sub-headings into one bulleted "Talks, Interviews, and Collaborations" list; teach the minimal Markdown renderer to handle `- ` lists; commit and push.
 
 ## Key Decisions
 
-- **Aligned project title with arXiv.** The previous title in `projects.yaml` was "...Combining Multiple Rank Statistics"; arXiv shows "...via Combined Rank Statistics" (David Kim, Yongchang Su, Jake Bowers, Xinran Li). Used the arXiv form since that is the official version of record. The 2025 ACIC conference entry in `data/vita.bib` (`@conference{kim2025acic, ...}`) still has the older title; left it alone because it documents the presentation, not the paper.
-- **Used the arXiv abstract verbatim, prefixed with "Joint work with...".** The previous description was a pedagogical paraphrase. Replacing it with the arXiv text keeps the projects page consistent with the canonical record and is the closest match to "update the abstract appropriately."
-- **Enabled markdown link rendering in project descriptions rather than emitting plain URLs.** First pass used a bare `https://arxiv.org/abs/...` URL in the CMRSS description because the template auto-escapes descriptions. Switched to lifting `render_markdown_links` to module scope, applying it in `load_projects`, and marking project descriptions as `|safe` in `templates/projects.html`. Trade-off: descriptions can now contain raw HTML, but YAML is authored by Jake so the trust boundary is fine.
+- **Edited prose against the named offenders in `~/.claude/CLAUDE.md`.** Replaced nominalized openers ("the aim of a teacher is to..."), vague evaluative verbs ("played a role," "envision"), gauzy abstractions ("ways to train the mind to confront the future"), and the locative figure "in the face of." Tightened "seeking ways to understand and judge" -> "judge"; "in an effort to develop" -> "to build"; "the utility of reading Marx" -> "why Marx is worth reading." Kept all facts, links, dates, and people. The William Gibson quote is untouched.
+- **Pinned the two flagged verbs with Jake.** "I played a role in the Brave New World conference" -> "I was invited to speak at..."; "helped John Ahlquist envision the UCSD San Diego 2049 event" -> "helped John Ahlquist conceive the...event." Jake supplied both verbs in-session; do not regress them.
+- **Collapsed three thematic sub-sections into one list.** "Politics of the Future," "Admiravel Mundo Novo," and "Other Activities" each had only one or two items, and the Admiravel header in particular grouped items (Publico interview, Casa Jasmina/IoT essay) that had nothing to do with the Brave New World conference. Replaced with a single `### Talks, Interviews, and Collaborations` section in rough chronological order: 2014 Duke workshop -> 2015 Porto conference + Sterling video -> Publico interview -> Casa Jasmina/IoT essay with Cara Wong -> ABC Radio National -> UCSD San Diego 2049.
+- **Extended `render_markdown()` rather than inlining raw HTML.** The minimal renderer in `generate_site.py` previously knew only H1-H3, paragraphs, and inline links. Added detection for blocks where every line begins with `- ` and emit them as `<ul><li>...</li></ul>`. Kept the addition self-contained inside `render_markdown` so existing pages (bio, project descriptions via `render_markdown_links`) are unaffected.
+- **Fixed "Australia National Radio" -> "Australian National Radio".** Jake confirmed; the network is ABC Radio National, the broader phrasing "Australian National Radio's [program]" is what the site uses.
+- **Split into two commits.** The Future Politics work is one commit; a second commit resyncs `projects.html`, whose generated HTML had been stale relative to `data/projects.yaml` since commit `2de7945` ("Updates to backburner projects"). Splitting keeps the editorial change separate from a pure regeneration.
 
 ## Files Changed and Why
 
 | File | Change |
 |------|--------|
-| `data/projects.yaml` | Working-paper entry: title aligned with arXiv, description swapped to arXiv abstract, `url` set to `https://arxiv.org/abs/2605.08027`. CMRSS software entry: appended a clickable markdown link to the arXiv paper. |
-| `generate_site.py` | Lifted `render_markdown_links` from inside `render_markdown` to module scope. Applied it to each project's `description` inside `load_projects` (covers `current`, `backburner`, `software` groups). Switched group fetches to `data.get(key) or []` so an empty `backburner:` section does not crash the loop. |
-| `templates/projects.html` | Three `{{ proj.description }}` -> `{{ proj.description|safe }}` (Current Projects, Backburner Projects, Software lists). |
-| `projects.html` | Regenerated from updated data and template. |
+| `data/future_politics.md` | Rewrote paragraphs 1 and 2 (course description, Gibson). Replaced the three sub-headings ("Politics of the Future," "Admiravel Mundo Novo," "Other Activities") with one `### Talks, Interviews, and Collaborations` bulleted list of six items in rough chronological order. Pinned verbs "spoke at" (Brave New World) and "conceive" (UCSD 2049). Fixed "Australia" -> "Australian". |
+| `generate_site.py` | Added bulleted-list support to `render_markdown()`: if every non-empty line in a block starts with `- `, emit `<ul><li>...</li></ul>` with link rendering applied per item. Docstring updated. |
+| `CLAUDE.md` (project) | Updated the `render_markdown()` line to note "bulleted lists with `- `" in the supported subset. |
+| `future-politics.html` | Regenerated. |
+| `projects.html` | Regenerated to match `data/projects.yaml` at HEAD. The YAML had already been updated in commit `2de7945`; the HTML had been left stale. No semantic change beyond what is already in the YAML. |
 
 ## What's Done
 
-- Committed (`f689b84`) and pushed to `origin/main`. `.github/workflows/build.yml` auto-deployed to `gh-pages` (run `25704758399`, success).
-- Verified live: `https://jakebowers.org/projects.html` returns 200 with two `arxiv.org/abs/2605.08027` hits (one for the working-paper entry, one for the clickable cross-link in the CMRSS software entry). Initial fetch hit a stale Cloudflare cache; the 10-minute `max-age` has since expired.
-- Verified anchor rendering: `projects.html:259` contains `<a href="https://arxiv.org/abs/2605.08027">Randomization Tests for Distributions of Individual Treatment Effects via Combined Rank Statistics</a>` inline in the CMRSS description block.
+- Committed and pushed to `origin/main`:
+  - `69e83f4` --- Rewrite Future Politics page and add list support to renderer
+  - `8f511e0` --- Regenerate projects.html to match YAML
+- `.github/workflows/build.yml` will auto-deploy to `gh-pages` on push to `main`.
+- Verified the rendered HTML: `future-politics.html` contains a single `<h3>Talks, Interviews, and Collaborations</h3>` followed by a `<ul>` with six `<li>` items, each with the expected links intact.
 
 ## What Remains
 
-- **No follow-up specific to this session.** The arXiv link is live, the abstract reflects the paper of record, and the markdown-link plumbing is in place for any future project description that needs an embedded link.
-- **From prior session (still pending):** Migrating the 99 PDFs in `static/papers/` to S3. Plan is unchanged from the 2026-04-28 handoff.
+- **Nothing follow-up specific to this session.** The Future Politics page reads as Jake wants it; the list-support extension is minimal and isolated.
+- **From prior session (still pending):** Migrating the 99 PDFs in `static/papers/` to S3. Plan is unchanged.
 
-## Cross-repo work this session (separate from website)
+## Open Questions
 
-This session also touched `bowers-illinois-edu/CMRSS` to fix CI. That work is documented in that repo's `HANDOFF.md` under the "Update 2026-05-12: CI now runs on push" heading. Summary for cross-reference:
-
-- pkgdown site at `https://bowers-illinois-edu.github.io/CMRSS/` now auto-rebuilds on push to `main`. No more manual `pkgdown::deploy_to_branch()`.
-- `R-CMD-check` runs on push across 5 OS configs and passes.
-- Ten tests were `skip()`'d with the message "Pending k-convention resolution; see PLAN.md item 1A and commit 53001b0". When David Kim replies on that item, revisit by grepping `Pending k-convention resolution` in `tests/testthat/`.
-
-These changes are scoped to the `bowers-illinois-edu/CMRSS` fork's CI and tests. The package code itself was not modified.
+- None outstanding. Earlier in the session I had asked whether to drop the "Other Activities" heading and fold its items into the preceding paragraph, or rename it; Jake's "let's combine into a list" answer resolved it.
 
 ## Important Context to Preserve
 
-- **`www.jakebowers.org` is dead for static files.** Every URL of the form `https://www.jakebowers.org/<path>` returns 404. Don't reintroduce these URLs; redirect to S3.
-- **S3 bucket convention:** `static.jakebowers.org`, no bucket policy, public access is per-object via `--acl public-read`. Without that flag, uploads return 403.
-- **Cloudflare caching:** The bucket is proxied through Cloudflare (Zone ID `00d57633940d082931a9137e7185e73a`). After uploading to S3, purge with `./scripts/purge-cache.sh <path>`. Requires `CLOUDFLARE_PURGE_TOKEN` env var. Not needed for fresh uploads to URLs that previously 404'd.
-- **Naming for archive collisions:** When uploading multiple files with the same basename to a flat S3 prefix, prefix with course code (e.g., `ps531syl_archive.pdf`).
-- **Generic `MISC/` PDFs that look like sibling files might be archive content.** The `ps{230,530,531}syl_archive.pdf` files in `MISC/` are pre-2018 syllabi; the same-stem files without `_archive` suffix are different (current) syllabi. Don't conflate.
-- **Build/deploy:** `uv run python generate_site.py` regenerates HTML in repo root. `.github/workflows/build.yml` watches `main` and pushes generated HTML to `gh-pages`. No manual deploy step.
-- **Markdown in YAML descriptions is now rendered.** `data/projects.yaml` descriptions pass through `render_markdown_links` (in `generate_site.py`), so `[text](url)` becomes a clickable `<a>` in the projects page. The template uses `|safe` for descriptions; raw HTML in a description would render as HTML rather than escape. Since the YAML is author-edited, this is acceptable.
-- **Archive source:** `~/repos/Archive/jakebowers.org/` holds the original static site files from the dead domain. `TeachingStuff/` subdir holds most of the old `ps230f*syl.pdf` files. Useful for further forensic work if more dead URLs surface elsewhere on the site.
+- **`render_markdown()` now supports bulleted lists.** A block is treated as a `<ul>` only if *every* non-empty line starts with `- ` (two characters: hyphen + space). Mixed blocks (some `- ` lines and some prose lines) will fall through to the paragraph branch and render as one `<p>`. If you need lists with leading prose, separate them with a blank line. This contract is intentional: it keeps the renderer easy to reason about, and matches the existing block-splitting on `\n\n`.
+- **Markdown subset is still minimal.** Supported: H1-H3 (`#`, `##`, `###`), paragraphs (default), inline links `[text](url)`, and now bulleted lists with `- `. Not supported: emphasis (`*x*`, `_x_`), code spans/blocks, blockquotes, ordered lists, nested lists, images, tables. If a future edit needs any of these, extend the renderer; do not switch to a full Markdown library without checking with Jake (the custom renderer was a deliberate choice).
+- **ASCII-only convention is non-negotiable.** Jake's global CLAUDE.md forbids unicode (em dash, en dash, smart quotes, ellipsis, arrows, decorative bullets) in any file written or edited. Use `---` for em dash, `--` for en dash, straight quotes, `...` for ellipsis, `->` for arrow. The only documented exception is diacritics on personal names (e.g., "Lopez").
+- **Style-guide hits relevant to future writing edits.** Jake's writing rules call out by name: nominalizations, passive voice that hides the actor, jargon-for-its-own-sake, architectural/anatomical metaphors used decoratively ("load-bearing," "spine," "scaffolding"), industrial metaphors ("the machinery of," "the apparatus of"), vague evaluative judgments ("is appropriate," "is suitable," "is reasonable," "is warranted," "is comfortable"), locative figures that hide a plain verb ("reads onto," "maps onto," "lives in"), and ornamental transitions ("Moreover," "Furthermore," "It is important to note that"). When editing Jake's prose, run a pass against these specifically.
+- **Do not put words in cited authors' mouths.** The Cascio paraphrase was preserved across the rewrite ("futurism is not prediction but mental readiness") because the original prose framed it as paraphrase, not quotation. Any sharper framing would need to be checked against Cascio's actual phrasing.
+- **Build/deploy unchanged.** `uv run python generate_site.py` regenerates HTML in repo root. `.github/workflows/build.yml` watches `main` and pushes generated HTML to `gh-pages`.
+- **Static file hosting unchanged.** PDFs at `https://static.jakebowers.org/`, S3 bucket `static.jakebowers.org`, no bucket policy, per-object ACLs (`--acl public-read` required on upload). Cloudflare proxy in front of the bucket; purge with `./scripts/purge-cache.sh <path>`.
+- **`www.jakebowers.org` is dead for static files.** Every URL of the form `https://www.jakebowers.org/<path>` returns 404. Do not reintroduce.
+- **Generated HTML can drift from YAML.** This session caught `projects.html` stale relative to `data/projects.yaml` (commit `2de7945` updated the YAML but did not regenerate). The auto-deploy workflow regenerates on push, but if a coauthor edits YAML in another repo or branch and you pull, run `uv run python generate_site.py` and commit any HTML drift in a separate "regenerate" commit so the diff stays readable.
+- **Archive source for any future link forensics:** `~/repos/Archive/jakebowers.org/` holds the original static site files from the dead `www.jakebowers.org` domain. `TeachingStuff/` subdir holds most of the old `ps230f*syl.pdf` files.
+
+## Cross-repo work this session
+
+None. All edits were in `~/repos/jake_site_new`.
