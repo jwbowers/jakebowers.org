@@ -49,7 +49,7 @@ Single-script static site generator following an MVC-like pattern:
 `generate_site.py` includes:
 - Custom BibTeX parser (no external library) — handles nested braces
 - `safe_year()` helper for parsing BibTeX years like `{2006}` — **do not remove**
-- `render_markdown()` with minimal subset support (H1-H3, links, paragraphs)
+- `render_markdown()` with minimal subset support (H1-H3, links, paragraphs, bulleted lists with `- `)
 - Publication filtering by keywords: `peer_reviewed`, `technical_report`, `open_source`, `essay`
 
 Generated pages: `index.html`, `publications.html`, `projects.html`, `teaching.html`, `future-politics.html`
