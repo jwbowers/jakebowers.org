@@ -79,11 +79,11 @@ backburner:
     url: https://static.jakebowers.org/PAPERS/BowersFredricksonHansen-MachineLearningExperiments.pdf
   - title: "Ethnicity and Electoral Fraud in New Democracies: Modelling Political Party Agents in Ghana"
     description: |
-      With Nahomi Ichino and Mark Fredrickson. Randomization inference with agent-based models for theories of party competition and ethnicity in Ghana.
+      With Nahomi Ichino and Mark Fredrickson. Randomization inference with agent-based models of network propagation of voter registration fraud for theories of party competition and ethnicity in Ghana.
     url: https://static.jakebowers.org/PAPERS/Ichino-Bowers-Fredrickson-Ghana.pdf
   - title: "Regression without Regrets: A Modular Approach to Linear Models in (Quasi-)Experiments"
     description: |
-      With Mark Fredrickson and Costas Panagopoulos. A modular use of linear models in (quasi-)experiments, framed by randomization inference.
+      With Mark Fredrickson and Costas Panagopoulos. A modular use of penalized linear machine-learning models in (quasi-)experiments, framed by randomization inference.
     url: https://static.jakebowers.org/PAPERS/BowersFredricksonPanagopoulosMPSA.pdf
   - title: "Fisher's Randomization Mode of Statistical Inference, Then and Now"
     description: |
@@ -107,7 +107,7 @@ backburner:
     url: https://docs.google.com/document/d/1hBvLB6LWP9NnpnA4UweMvkKmv15xnnZFv998LU1YedU/edit
   - title: "Political Participation as a Dynamic Sporadic Process in the Lives of Ordinary Americans (later 'The Shape of Political Participation')"
     description: |
-      With Paul Testa, June 2012. Description of how political participation varies within and across individual lives in the United States.
+      With Paul Testa, June 2012. A theory and description of how political participation varies within and across individual lives in the United States.
     url: https://static.jakebowers.org/PAPERS/BowersTesta-06-2012-Participation.pdf
   - title: "Dissertation Overview"
     description: |
