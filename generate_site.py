@@ -483,13 +483,19 @@ def generate_site():
         autoescape=select_autoescape(['html', 'xml'])
     )
     # common context
-    current_year = datetime.datetime.now().year
+    now = datetime.datetime.now()
+    current_year = now.year
+    # Cache-busting tag for the vita PDF served via Cloudflare.  Each
+    # regeneration produces a fresh query string so a freshly uploaded
+    # vita is fetched from S3 on the next request.
+    vita_version = now.strftime('%Y%m%d%H%M')
     common = {
         'site_name': site_name,
         'author_name': author_name,
         'current_year': current_year,
         'static_path': 'static',
         'goatcounter_code': goatcounter_code,
+        'vita_version': vita_version,
     }
     # Generate index
     index_template = env.get_template('index.html')
