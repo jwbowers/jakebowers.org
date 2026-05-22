@@ -51,7 +51,22 @@
         
 <section class="projects">
   <h1>Research &amp; Software</h1>
+
+  <div class="pub-filters" role="group" aria-label="Filter projects">
+    <button class="pub-filter-btn active" data-filter="all">All</button>
+    
+    <button class="pub-filter-btn" data-filter="current">Current Projects</button>
+    
+    
+    <button class="pub-filter-btn" data-filter="older">Selected Older Work</button>
+    
+    
+    <button class="pub-filter-btn" data-filter="software">Software</button>
+    
+  </div>
+
   
+  <div class="project-group" data-category="current">
   <h2>Current Projects</h2>
   <ul class="project-list">
     
@@ -210,9 +225,11 @@
     </li>
     
   </ul>
+  </div>
   
 
   
+  <div class="project-group" data-category="older">
   <h2>Selected Older Work</h2>
   <ul class="project-list">
     
@@ -287,9 +304,11 @@
     </li>
     
   </ul>
+  </div>
   
 
   
+  <div class="project-group" data-category="software">
   <h2>Software</h2>
   <ul class="project-list">
     
@@ -347,8 +366,35 @@ Companion to Kim, Su, Bowers, and Li,
     </li>
     
   </ul>
+  </div>
   
 </section>
+
+<script>
+(function() {
+  const buttons = document.querySelectorAll('.pub-filter-btn');
+  const groups = document.querySelectorAll('.project-group');
+
+  buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+
+      // Update active button
+      buttons.forEach(function(btn) { btn.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Filter project groups
+      groups.forEach(function(group) {
+        if (filter === 'all' || group.getAttribute('data-category') === filter) {
+          group.style.display = '';
+        } else {
+          group.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
 
       </div>
     </main>
@@ -360,7 +406,7 @@ Companion to Kim, Su, Bowers, and Li,
           <a href="publications.html">Publications</a>
           <a href="projects.html">Research</a>
           <a href="teaching.html">Teaching</a>
-          <a href="https://static.jakebowers.org/MISC/bowers-vita.pdf?v=202605220844">CV</a>
+          <a href="https://static.jakebowers.org/MISC/bowers-vita.pdf?v=202605221135">CV</a>
         </nav>
         <p>&copy; 2026 Jake Bowers. All rights reserved.</p>
         
