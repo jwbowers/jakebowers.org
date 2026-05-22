@@ -3,7 +3,22 @@
 {% block content %}
 <section class="projects">
   <h1>Research &amp; Software</h1>
+
+  <div class="pub-filters" role="group" aria-label="Filter projects">
+    <button class="pub-filter-btn active" data-filter="all">All</button>
+    {% if current_projects %}
+    <button class="pub-filter-btn" data-filter="current">Current Projects</button>
+    {% endif %}
+    {% if backburner_projects %}
+    <button class="pub-filter-btn" data-filter="older">Selected Older Work</button>
+    {% endif %}
+    {% if software_projects %}
+    <button class="pub-filter-btn" data-filter="software">Software</button>
+    {% endif %}
+  </div>
+
   {% if current_projects %}
+  <div class="project-group" data-category="current">
   <h2>Current Projects</h2>
   <ul class="project-list">
     {% for proj in current_projects %}
@@ -26,9 +41,11 @@
     </li>
     {% endfor %}
   </ul>
+  </div>
   {% endif %}
 
   {% if backburner_projects %}
+  <div class="project-group" data-category="older">
   <h2>Selected Older Work</h2>
   <ul class="project-list">
     {% for proj in backburner_projects %}
@@ -39,9 +56,11 @@
     </li>
     {% endfor %}
   </ul>
+  </div>
   {% endif %}
 
   {% if software_projects %}
+  <div class="project-group" data-category="software">
   <h2>Software</h2>
   <ul class="project-list">
     {% for proj in software_projects %}
@@ -52,6 +71,33 @@
     </li>
     {% endfor %}
   </ul>
+  </div>
   {% endif %}
 </section>
+
+<script>
+(function() {
+  const buttons = document.querySelectorAll('.pub-filter-btn');
+  const groups = document.querySelectorAll('.project-group');
+
+  buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+
+      // Update active button
+      buttons.forEach(function(btn) { btn.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Filter project groups
+      groups.forEach(function(group) {
+        if (filter === 'all' || group.getAttribute('data-category') === filter) {
+          group.style.display = '';
+        } else {
+          group.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
 {% endblock %}
