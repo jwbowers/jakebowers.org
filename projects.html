@@ -125,7 +125,7 @@
     <li class="project">
       <strong>Fully Specified Bayes Factors for Hypothesis Testing in Qualitative Research</strong>
       
-      <p>Joint work with Matias López and Daniel Gajardo Cooper. We enhance the use of Bayes Factors for hypothesis testing in case-studies and process tracing by proposing two generative models of how evidence was produced. The researcher classifies each observation as favoring one theory or the other---a directional judgment, not a magnitude judgment---and a probability model supplies the rest. We provide two models: a binomial model for open-ended research designs where the evidence base could always grow, and a hypergeometric urn model for bounded archives where the researcher has examined a substantial fraction of what exists. We develop a decision threshold grounded in the e-values literature and a sensitivity analysis that answers a concrete question---how many observations would the researcher need to have miscoded to overturn the finding? We illustrate with competing explanations for Weimar Germany's democratic collapse and provide a companion R package, DrBristol. In preparation.
+      <p>Joint work with Matias López and Daniel Gajardo Cooper. Process tracing rests on the evaluation of observations about a single case in light of competing hypotheses, however different scholars may read the same observations differently. Fairfield and Charman (2022) propose summarizing within-case evidence as a Bayes factor, but their method requires subjective assessments of the probability and weight of evidence, and this has raised sharp criticism (Zaks 2021). In this paper, we propose a solution by deriving such probabilities directly from two fully specified generative models of observation tailored to process tracing research designs. Each model can substitute for the researcher's per-observation judgments, but a researcher can also incorporate weights of evidence. Within each model, we derive the version most favorable to the rival, thus the reported Bayes factor is a conservative lower bound on evidence favoring the working theory. Most importantly, we enable researchers to report how much (a) coding error, (b) observation bias, (c) weighting, and (d) rival-tilted prior a positive conclusion can absorb before flipping in favor of the rival. In practice, this means that final conclusions are driven by sensitivity tests more than by Bayes factors themselves. To show the usefulness of our approach we apply the framework to six recent process-tracing studies in top political science journals. In preparation.
 </p>
       
       <p class="project-coauthors">
@@ -146,7 +146,7 @@
     <li class="project">
       <strong>Experimental Reasoning in Process Tracing: A Method for Calculating P-Values for Qualitative Causal Inference</strong>
       - <a href="https://arxiv.org/abs/2310.13826" class="project-link">[link]</a>
-      <p>Joint work with Matias López. We adapt Fisher's urn model to qualitative process tracing to compute p-values for evidence supporting one theory over another. The method includes sensitivity analysis for observation bias and a framework for weighing evidence strength, illustrated with simulations and replications. Under review.
+      <p>Joint work with Matias López. We introduce a method of statistical inference for calculating p-values to test causal hypotheses in qualitative research a la process tracing. As in an experiment, our p-value tells us how often one would make the same or more compelling observations while entertaining a rival theory. We adapt Fisher's (1935) randomization-based urn model to the reality of qualitative researchers, who cannot randomize history, but can make observations about historical processes. Our test includes a method of sensitivity analysis, as well as a framework for representing the varying strength of individual pieces of evidence, altogether informing the robustness of qualitative causal inference. We provide simulations and replications to illustrate how to calculate p-values using any type of qualitative data about one case. This approach fosters plurality in the uses of probability theory in theory-testing process tracing by offering a simple model of statistical inference with provable conservatism, while relying on few assumptions which we address directly. Under review.
 </p>
       
       <p class="project-coauthors">
@@ -360,7 +360,7 @@ Companion to Kim, Su, Bowers, and Li,
           <a href="publications.html">Publications</a>
           <a href="projects.html">Research</a>
           <a href="teaching.html">Teaching</a>
-          <a href="https://static.jakebowers.org/MISC/bowers-vita.pdf?v=202605220146">CV</a>
+          <a href="https://static.jakebowers.org/MISC/bowers-vita.pdf?v=202605221346">CV</a>
         </nav>
         <p>&copy; 2026 Jake Bowers. All rights reserved.</p>
         
