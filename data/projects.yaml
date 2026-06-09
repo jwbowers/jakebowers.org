@@ -72,6 +72,36 @@ current:
       - name: Anjali Chainani
         url: https://www.fels.upenn.edu/people-fels/faculty-instructors/anjali-chainani
 
+  - title: "Barriers to Engaging the State: Evidence from Six Randomized Experiments on Transaction Costs, Public Services, and Taxation in the Global South"
+    description: |
+      We present six harmonized RCTs to assess whether removing bureaucratic hurdles can encourage individuals to engage formally with the state in six countries in the Global South. Recent work has argued that the trade-offs inherent to formalization are more acceptable to individuals when formalization is tied to publicly-derived benefits, such as access to legal recourse in disputes, public services, or public utilities. Yet, even in these cases, bureaucratic barriers to formalization might be insurmountable. So far, disconnected research on different bureaucratic procedures has led to contrasting conclusions about how entry costs affect formalization. Our interventions involved in-person assistance to reduce the upfront transaction costs of dealing with the bureaucracy in three types of policy domain: titling property, registration of small businesses, and access to public utilities (i.e., municipal water) and public services (i.e., garbage collection). Our meta-analysis shows that the average effect of these interventions on individuals' formalization, tax payment, and access to services is indistinguishable from zero. We also find substantial heterogeneity in individuals' intent to undertake and complete the bureaucratic process. Across policy domains, individuals are more willing to bear formalization's downstream costs when the benefits are individual. Our results also suggest that local bureaucratic incentives must be aligned for demand-side interventions to work. Under review.
+    url: null
+    coauthors:
+      - name: Ana De La O
+      - name: Donald Green
+      - name: Peter John
+      - name: Rafael Goldszmidt
+      - name: Anna-Katerina Lenz
+      - name: Martín Valdivia
+      - name: Cesar Zucco
+      - name: Darin Christensen
+      - name: Francisco Garfias
+      - name: Pablo Balán
+      - name: Augustin Bergeron
+      - name: Gabriel Tourek
+      - name: Jonathan Weigel
+      - name: Jessica Gottlieb
+      - name: Adrienne LeBas
+      - name: Janica Magat
+      - name: Nonso Obikili
+      - name: Nuole Chen
+      - name: Christopher Grady
+      - name: Matthew Winters
+      - name: Nikhar Gaikwad
+      - name: Gareth Nellis
+      - name: Anjali Thomas
+      - name: Susan Hyde
+
 backburner:
   - title: "How to Increase the Precision of Causal Inferences in Experiments Using Machine Learning (but without Data Snooping)"
     description: |
