@@ -6,3 +6,14 @@ static/papers/*.tar.gz
 static/papers/*.tgz
 static/papers/*.zip
 static/papers/*.rnw
+
+# Generated HTML pages -- rebuilt from data/ + templates/ by generate_site.py.
+# CI regenerates and deploys these on every push (see .github/workflows/build.yml),
+# so the committed copies were never the deployed ones; tracking them only caused
+# timestamp churn and stale-artifact drift. Kept on disk for local preview.
+# Leading slash anchors to the repo root so templates/index.html stays tracked.
+/index.html
+/publications.html
+/projects.html
+/teaching.html
+/future-politics.html

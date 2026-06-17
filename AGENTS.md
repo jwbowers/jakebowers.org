@@ -5,7 +5,7 @@
 - `data/` holds content sources: `bio.md`, `vita.bib`, `projects.yaml`, `teaching.yaml`, and `config.yaml`.
 - `templates/` contains Jinja2 HTML templates (`layout.html` plus page templates).
 - `static/css/style.css` is the global stylesheet.
-- Generated pages live in the repo root: `index.html`, `publications.html`, `projects.html`, `teaching.html`.
+- Generated pages are written to the repo root but are git-ignored (CI rebuilds them on every push): `index.html`, `publications.html`, `projects.html`, `teaching.html`, `future-politics.html`.
 
 ## Build, Test, and Development Commands
 - `python generate_site.py` regenerates all HTML pages from `data/` + `templates/`.
@@ -32,4 +32,4 @@
 
 ## Agent-Specific Notes
 - `codex_instructions.md` documents the generator workflow and file roles; follow it when editing data or templates.
-- After any data/template/CSS change, re-run `python generate_site.py` so generated pages stay in sync.
+- Generated HTML pages are git-ignored; CI rebuilds them from `data/` + `templates/` on every push and deploys to `gh-pages`. Run `python generate_site.py` locally only to preview changes -- there is no need to commit the resulting HTML.

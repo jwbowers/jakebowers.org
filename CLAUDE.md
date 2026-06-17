@@ -20,7 +20,26 @@ python generate_site.py
 
 Requires Python 3.14+ with `jinja2` and `pyyaml` dependencies.
 
-**After ANY change to data, templates, or CSS, re-run the generator** to keep HTML files in sync.
+**The generated HTML pages are git-ignored, not tracked.** CI rebuilds them from `data/` + `templates/` on every push to `main` (see `.github/workflows/build.yml`) and deploys the result to `gh-pages`, so the files under `data/`, `templates/`, and `static/` are the single source of truth. Run the generator locally only to preview changes in a browser; the resulting HTML stays on disk but is not committed.
+
+## Bibliography source
+
+`data/vita.bib` is **not** the source of truth. The canonical bibliography lives
+in a separate private repo at `~/repos/vita/vita.bib` (`github.com:jwbowers/vita`),
+where new entries are normally added. The copy here is a derived mirror.
+
+Because the vita repo is private, CI cannot fetch it at build time, so the mirror
+is committed to this repo and refreshed by hand with `bin/sync-vita-bib.sh`:
+
+- Run with no arguments to **check** (read-only) whether the mirror matches the
+  canonical. Exit 0 if in sync, 1 if diverged.
+- Run with `--apply` to copy canonical -> mirror. It refuses if the mirror has
+  lines absent from the canonical (a sign of a direct edit that should be ported
+  upstream first); `--apply --force` overrides after you confirm those lines are
+  stale.
+
+Do not hand-edit `data/vita.bib`. Edit `~/repos/vita/vita.bib`, then sync. If you
+ever do fix something in the mirror, port it back to the canonical and re-sync.
 
 ## Architecture
 
@@ -36,7 +55,7 @@ Single-script static site generator following an MVC-like pattern:
 
 | File | Purpose |
 |------|---------|
-| `data/vita.bib` | Publications in BibTeX; `@unpublished` entries appear in projects, not publications |
+| `data/vita.bib` | Publications in BibTeX, a derived mirror of the canonical `~/repos/vita/vita.bib` (see Bibliography source below); `@unpublished` entries appear in projects, not publications |
 | `data/projects.yaml` | Current projects, backburner projects, software |
 | `data/teaching.yaml` | Courses and syllabus links |
 | `data/bio.md` | Front-page biography (limited Markdown: headings, links, paragraphs) |
@@ -52,7 +71,7 @@ Single-script static site generator following an MVC-like pattern:
 - `render_markdown()` with minimal subset support (H1-H3, links, paragraphs, bulleted lists with `- `)
 - Publication filtering by keywords: `peer_reviewed`, `technical_report`, `open_source`, `essay`
 
-Generated pages: `index.html`, `publications.html`, `projects.html`, `teaching.html`, `future-politics.html`
+Generated pages (written to the repo root, git-ignored, rebuilt by CI on deploy): `index.html`, `publications.html`, `projects.html`, `teaching.html`, `future-politics.html`
 
 ## Static File Hosting (AWS S3)
 
