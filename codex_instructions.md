@@ -66,14 +66,13 @@ Templates are rendered using **Jinja2**.
 
 ## Local workflow
 
-The generated HTML pages are git-ignored. CI rebuilds them from `data/` +
-`templates/` on every push and deploys to `gh-pages`, so you never need to
-commit them. To preview changes locally after **any change** to data,
-templates, or CSS, run:
+After **any change** to data, templates, or CSS, regenerate and commit the HTML:
 
 ```bash
 python generate_site.py
 ```
 
-then open the resulting HTML files in a browser.
+The generated pages are tracked in git and must stay that way: the deploy
+publishes only git-tracked files, so an untracked page is dropped from the live
+site. Commit the regenerated HTML; do not add it to `.gitignore`.
 
