@@ -20,7 +20,7 @@ python generate_site.py
 
 Requires Python 3.14+ with `jinja2` and `pyyaml` dependencies.
 
-**After ANY change to data, templates, or CSS, re-run the generator** to keep HTML files in sync.
+**The generated HTML pages are git-ignored, not tracked.** CI rebuilds them from `data/` + `templates/` on every push to `main` (see `.github/workflows/build.yml`) and deploys the result to `gh-pages`, so the files under `data/`, `templates/`, and `static/` are the single source of truth. Run the generator locally only to preview changes in a browser; the resulting HTML stays on disk but is not committed.
 
 ## Architecture
 
@@ -52,7 +52,7 @@ Single-script static site generator following an MVC-like pattern:
 - `render_markdown()` with minimal subset support (H1-H3, links, paragraphs, bulleted lists with `- `)
 - Publication filtering by keywords: `peer_reviewed`, `technical_report`, `open_source`, `essay`
 
-Generated pages: `index.html`, `publications.html`, `projects.html`, `teaching.html`, `future-politics.html`
+Generated pages (written to the repo root, git-ignored, rebuilt by CI on deploy): `index.html`, `publications.html`, `projects.html`, `teaching.html`, `future-politics.html`
 
 ## Static File Hosting (AWS S3)
 
