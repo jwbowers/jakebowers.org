@@ -59,7 +59,7 @@ Single-script static site generator following an MVC-like pattern:
 | `data/projects.yaml` | Current projects, backburner projects, software |
 | `data/teaching.yaml` | Courses and syllabus links |
 | `data/bio.md` | Front-page biography (limited Markdown: headings, links, paragraphs) |
-| `data/config.yaml` | Site name, author name, vita PDF path |
+| `data/config.yaml` | Site name, author name, vita PDF path, and the vita cache-busting tag (`vita_version`, `vita_pdf_source`; see Static File Hosting below) |
 | `templates/layout.html` | Base template (header, nav, footer) |
 | `static/css/style.css` | Single global stylesheet |
 
@@ -85,11 +85,34 @@ aws s3 cp <local-file> s3://static.jakebowers.org/MISC/<filename> --acl public-r
 For example, to update the vita:
 ```bash
 aws s3 cp ~/repos/vita/bowers-vita.pdf s3://static.jakebowers.org/MISC/bowers-vita.pdf --acl public-read
+python generate_site.py   # picks up the new cache-busting tag automatically
 ```
 
 The bucket has no bucket policy — public access is controlled per-object via ACLs. **Without `--acl public-read`, uploaded files will be private and return 403 Forbidden errors.**
 
-Note: `data/config.yaml` has a `vita_pdf` field, but it is not currently used by the templates. The S3 URL is hardcoded in `templates/layout.html` and `templates/index.html`.
+### Vita cache-busting tag
+
+The vita link in `templates/layout.html` and `templates/index.html` carries a
+`?v=<tag>` query string so a freshly uploaded vita is refetched instead of
+served stale from Cloudflare/browser caches. The tag is a short SHA-256 hash of
+the canonical vita PDF, computed by `generate_site.py` (`resolve_vita_version`)
+and stored in `config.yaml` as `vita_version`:
+
+- The hash source is `vita_pdf_source` in `config.yaml` (default
+  `~/repos/vita/bowers-vita.pdf`). When that file is present (Jake's machine),
+  the generator recomputes the hash and, if it changed, writes the new value
+  back into `config.yaml` `vita_version`. So updating the vita and regenerating
+  bumps the tag automatically -- commit the changed `config.yaml`.
+- When the source PDF is absent (the CI runner), the generator reuses the
+  committed `vita_version`. The deployed site is built by CI, so that committed
+  value is what ships -- which is why the hash is persisted rather than computed
+  fresh each run.
+- Because the tag is content-derived, regenerating without changing the vita
+  produces no diff. Do not hand-edit `vita_version`.
+
+Note: `data/config.yaml` also has a `vita_pdf` field that is not used by the
+templates. The S3 URL itself is hardcoded in `templates/layout.html` and
+`templates/index.html`.
 
 ## Testing
 

@@ -24,6 +24,7 @@ for common fields.
 
 import os
 import re
+import hashlib
 import datetime
 import yaml
 from pathlib import Path
@@ -457,6 +458,47 @@ def load_bio(bio_path: Path):
     return load_markdown(bio_path)
 
 
+def _persist_vita_version(config_path: Path, version: str) -> None:
+    """Write `version` into the vita_version line of config.yaml in place.
+
+    This is a targeted text edit, not a YAML dump, so comments and key order
+    in config.yaml are preserved. The line is replaced if present, appended
+    otherwise.
+    """
+    text = config_path.read_text(encoding='utf-8')
+    line = f'vita_version: "{version}"'
+    if re.search(r'(?m)^vita_version:.*$', text):
+        text = re.sub(r'(?m)^vita_version:.*$', line, text)
+    else:
+        if text and not text.endswith('\n'):
+            text += '\n'
+        text += line + '\n'
+    config_path.write_text(text, encoding='utf-8')
+
+
+def resolve_vita_version(config: dict, config_path: Path) -> str:
+    """Return the cache-busting tag for the vita PDF link.
+
+    The tag is a short content hash of the canonical vita PDF, so it changes
+    only when the PDF actually changes -- regenerating the site otherwise
+    produces no diff. The PDF lives outside this repo (default
+    `~/repos/vita/bowers-vita.pdf`, overridable via the `vita_pdf_source`
+    config key), so when it is not present -- as on the CI runner -- fall back
+    to the value already stored in config.yaml. Because the deployed site is
+    built by CI from that stored value, any newly computed hash is written back
+    to config.yaml so the committed and deployed tags stay identical.
+    """
+    stored = str(config.get('vita_version', '') or '').strip()
+    source = config.get('vita_pdf_source', '~/repos/vita/bowers-vita.pdf')
+    pdf_path = Path(str(source)).expanduser()
+    if not pdf_path.is_file():
+        return stored or '1'
+    digest = hashlib.sha256(pdf_path.read_bytes()).hexdigest()[:12]
+    if digest != stored:
+        _persist_vita_version(config_path, digest)
+    return digest
+
+
 def generate_site():
     base_dir = Path(__file__).parent
     data_dir = base_dir / 'data'
@@ -485,10 +527,10 @@ def generate_site():
     # common context
     now = datetime.datetime.now()
     current_year = now.year
-    # Cache-busting tag for the vita PDF served via Cloudflare.  Each
-    # regeneration produces a fresh query string so a freshly uploaded
-    # vita is fetched from S3 on the next request.
-    vita_version = now.strftime('%Y%m%d%H%M')
+    # Cache-busting tag for the vita PDF served via Cloudflare.  A content hash
+    # of the canonical vita PDF (see resolve_vita_version), so the query string
+    # changes only when the PDF changes -- regenerating otherwise yields no diff.
+    vita_version = resolve_vita_version(config, config_path)
     common = {
         'site_name': site_name,
         'author_name': author_name,
