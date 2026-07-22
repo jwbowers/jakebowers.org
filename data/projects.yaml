@@ -155,6 +155,11 @@ software:
       treatment (for balance tests) or tests of the null hypothesis of no
       effects on any of multiple outcomes from a single treatment.
     url: https://cran.r-project.org/package=RItools
+  - title: fastperm (development)
+    description: |
+      An R package that makes permutation inference fast enough for studies
+      with millions of units. Begun in summer 2026.
+    url: https://github.com/bowers-illinois-edu/fastperm
   - title: manytestsr (development)
     description: |
       A package to do many tests to localize causal effects in (sets of) experimental blocks
