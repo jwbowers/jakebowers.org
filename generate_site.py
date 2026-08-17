@@ -280,7 +280,12 @@ def parse_bibtex(bib_path: Path):
             value = value.strip()
             if (value.startswith('{') and value.endswith('}')) or (value.startswith('"') and value.endswith('"')):
                 value = value[1:-1]
-            entry[key] = value.strip()
+            # BibTeX treats a newline inside a field value as a space, so collapse
+            # interior whitespace.  The canonical vita.bib is hard-wrapped by a
+            # formatter, and a wrap landing right after "and" would otherwise leave
+            # the author separator as "and\n<indent>" -- format_authors() splits on
+            # the literal ' and ', so that entry's names get merged and scrambled.
+            entry[key] = re.sub(r'\s+', ' ', value).strip()
         entries.append(entry)
     return entries
 
