@@ -7,7 +7,7 @@ vita_pdf_source: ~/repos/vita/bowers-vita.pdf
 # Cache-busting tag for the vita PDF link (?v=). A short content hash of the
 # PDF at vita_pdf_source, updated automatically by generate_site.py whenever
 # that PDF changes. Do not edit by hand.
-vita_version: "485763d58664"
+vita_version: "faa08ac5a06d"
 # GoatCounter analytics - set to your site code (e.g., "jakebowers" for jakebowers.goatcounter.com)
 # Sign up free at https://www.goatcounter.com/
 goatcounter_code: "jakebowers"
