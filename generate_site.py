@@ -27,6 +27,7 @@ import re
 import hashlib
 import datetime
 import yaml
+import markupsafe
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -382,7 +383,6 @@ def build_publication_list(entries, pdf_dir: Path | None = None, pdf_map: dict[s
         replication_url = (item.get('replication-url') or '').strip()
         display_items.append({
             'authors': authors,
-            'title': title,
             'date': date,
             'venue': venue,
             'volume': volume,
@@ -391,7 +391,13 @@ def build_publication_list(entries, pdf_dir: Path | None = None, pdf_map: dict[s
             'editor': editor,
             'publisher': publisher,
             'address': address,
-            'note': note,
+            # Bibliography titles and notes carry LaTeX too, and unlike the
+            # project descriptions they reach an autoescaping template. Escape
+            # first so anything angle-bracketed in the .bib stays inert, then
+            # convert, then mark the result so Jinja does not escape the tags
+            # the converter just added.
+            'title': markupsafe.Markup(latex_to_html(str(markupsafe.escape(title)))),
+            'note': markupsafe.Markup(latex_to_html(str(markupsafe.escape(note)))),
             'type': etype,
             'key': item.get('key', ''),
             'url': url,
@@ -411,7 +417,9 @@ def load_projects(projects_path: Path):
     for group in (current, backburner, software):
         for proj in group:
             if proj.get('description'):
-                proj['description'] = render_markdown_links(proj['description'])
+                proj['description'] = render_markdown_links(
+                    latex_to_html(proj['description'])
+                )
     return current, backburner, software
 
 
@@ -424,10 +432,115 @@ def render_markdown_links(value: str) -> str:
     return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', value)
 
 
+# Greek letters as named HTML entities rather than unicode characters, so this
+# file and the generated HTML both stay inside printable ASCII while a browser
+# still shows the letter and a screen reader still reads its name.
+GREEK_ENTITIES = {
+    name: '&%s;' % name
+    for name in (
+        'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta',
+        'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'pi', 'rho', 'sigma',
+        'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega',
+        'Gamma', 'Delta', 'Theta', 'Lambda', 'Xi', 'Pi', 'Sigma', 'Upsilon',
+        'Phi', 'Psi', 'Omega',
+    )
+}
+
+# The element depends on what the author meant, because a screen reader may
+# announce the difference. \emph{} stresses a word, so it becomes <em>, which
+# carries stress emphasis. \textit{} is typographic italic and carries no
+# stress, so it becomes <i>, which a screen reader passes over silently.
+TEXT_COMMAND_TAGS = {'emph': 'em', 'textit': 'i', 'textbf': 'strong'}
+
+# The argument admits no braces and no backslashes, so a command wrapping other
+# markup does not match on the first pass. latex_to_html repeats the
+# substitution, which converts nested commands from the inside out.
+TEXT_COMMAND = re.compile(
+    r'\\(%s)\{([^{}\\]*)\}' % '|'.join(TEXT_COMMAND_TAGS)
+)
+
+# One symbol -- a single Latin letter or a Greek command -- carrying at most a
+# subscript and a superscript. This is deliberately narrow: it covers $d^2$ and
+# $\alpha_i$, and it refuses to match a pair of dollar amounts in a sentence,
+# which would otherwise look like a math span and be mangled.
+SIMPLE_MATH = re.compile(
+    r'\$(\\[A-Za-z]+|[A-Za-z])((?:[_^](?:\{[A-Za-z0-9]+\}|[A-Za-z0-9])){0,2})\$'
+)
+
+MATH_SCRIPT = re.compile(r'([_^])(?:\{([A-Za-z0-9]+)\}|([A-Za-z0-9]))')
+
+
+def _convert_math(match: re.Match) -> str:
+    """Render one simple math span, or return it unchanged if we cannot."""
+    symbol, scripts = match.group(1), match.group(2)
+
+    if symbol.startswith('\\'):
+        entity = GREEK_ENTITIES.get(symbol[1:])
+        if entity is None:
+            return match.group(0)
+        symbol = entity
+
+    parts = [
+        (kind, braced or bare)
+        for kind, braced, bare in MATH_SCRIPT.findall(scripts)
+    ]
+    # Two superscripts (or two subscripts) mean the expression is doing
+    # something this converter does not model, so leave it as written.
+    if len({kind for kind, _ in parts}) != len(parts):
+        return match.group(0)
+
+    html = symbol
+    for kind, value in parts:
+        tag = 'sup' if kind == '^' else 'sub'
+        html += '<%s>%s</%s>' % (tag, value, tag)
+    # Italic here is the typographic convention for a variable, not stress, so
+    # <i> rather than <em>: a screen reader reads the symbol without announcing
+    # emphasis on every occurrence.
+    return '<i>%s</i>' % html
+
+
+def latex_to_html(text: str) -> str:
+    """Convert the LaTeX markup that shows up in pasted abstracts to HTML.
+
+    Descriptions in data/projects.yaml and data/bio.md are pasted out of paper
+    sources, so they arrive with LaTeX in them, and the templates render them
+    with |safe. Anything this function does not convert reaches the page as
+    written, which is the intent: a visible \\emph{} reports a construct we do
+    not handle, whereas dropping it would remove text without a trace.
+
+    Tests are in tests/test_latex_to_html.py.
+    """
+    if not text:
+        return text
+
+    # Each pass converts the innermost commands, exposing the ones that
+    # enclosed them. Three passes cover any nesting depth these descriptions
+    # have ever had; the bound just guarantees termination.
+    for _ in range(3):
+        converted = TEXT_COMMAND.sub(
+            lambda m: '<{tag}>{body}</{tag}>'.format(
+                tag=TEXT_COMMAND_TAGS[m.group(1)], body=m.group(2)
+            ),
+            text,
+        )
+        if converted == text:
+            break
+        text = converted
+
+    return SIMPLE_MATH.sub(_convert_math, text)
+
+
 def render_markdown(text: str) -> str:
     """Render a small Markdown subset (headings + lists + links) to HTML."""
     if not text:
         return ''
+
+    # These files are pasted from the same LaTeX and Quarto sources as the
+    # project descriptions, and the templates render the result with |safe, so
+    # untranslated markup would reach the page verbatim. Running the converter
+    # on the whole text first is safe: it touches neither the leading '#' of a
+    # heading nor the '- ' of a list item.
+    text = latex_to_html(text)
 
     blocks = [block.strip() for block in text.strip().split('\n\n') if block.strip()]
     html_blocks = []
