@@ -1,4 +1,13 @@
 
+- term: Fall 2026
+  courses:
+    - title: "Introduction to Applied Statistics in Political Science: Description, Comparison, Estimation, Inference"
+      url: https://static.jakebowers.org/MISC/ps530f26syl.pdf
+      description: "First-term statistics course for political science PhD students focusing on description, comparison, estimation, and testing."
+    - title: "Future Politics"
+      url: https://static.jakebowers.org/MISC/future_politics_syllabus_2026.pdf
+      description: "An interdisciplinary seminar examining how speculative fiction can illuminate political theory, social change, and the future of democracy. Students read science fiction and pair it with scholarly work on institutions, power, and inequality."
+
 - term: Spring 2026
   courses:
     - title: "Causal Inference"
