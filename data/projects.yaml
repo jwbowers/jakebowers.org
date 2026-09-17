@@ -143,6 +143,27 @@ backburner:
     description: |
       Sole-authored overview of my doctoral dissertation.
     url: https://static.jakebowers.org/PAPERS/Bowers-DissertationOverview.pdf
+  - title: "Drug Safety and Deadlines: Causal Inference About A Regulatory Regime Change at the FDA"
+    description: |
+      With Dan Carpenter and Ben Hansen, May 2007. Whether the review deadlines
+      imposed by the Prescription Drug User Fee Acts caused drug safety problems,
+      and how an observational study with discontinuities can use as much
+      information as possible while avoiding bias and fragile results.
+      [Slides from the Robert Wood Johnson Scholars meeting](https://static.jakebowers.org/PAPERS/BowersCarpenterHansen-DrugSafetyDeadlines-Slides.pdf).
+    url: https://static.jakebowers.org/PAPERS/BowersCarpenterHansen-DrugSafetyDeadlines.pdf
+  - title: "A Reasoned Basis for Inference: Randomization and Design Justifying Estimation and Testing"
+    description: |
+      With Costas Panagopoulos, July 2009. How to estimate and test effects in a
+      field experiment of only eight units, and in an observational study whose
+      outcome has too many zeros for a Poisson model and too many large values
+      for a negative binomial one.
+    url: https://static.jakebowers.org/PAPERS/BowPanPolmeth2009.pdf
+  - title: "Intimidation and Resistance: A Case-Study of Race, Crossburnings and Political Behavior in North Carolina"
+    description: |
+      With Mark Fredrickson and Thomas Engstrom, June 2009. Whether political
+      threat stimulates or depresses political participation in the communities
+      it targets, studied through crossburnings in North Carolina.
+    url: https://static.jakebowers.org/PAPERS/BowFredEngIPSA2009.pdf
 
 software:
   - title: RItools
