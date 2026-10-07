@@ -158,6 +158,14 @@ backburner:
       outcome has too many zeros for a Poisson model and too many large values
       for a negative binomial one.
     url: https://static.jakebowers.org/PAPERS/BowPanPolmeth2009.pdf
+  - title: "Do Newspaper Ads Raise Voter Turnout? Evidence from a Randomized Field Experiment"
+    description: |
+      With Costas Panagopoulos, June 2012. Whether nonpartisan newspaper ads
+      raise turnout in local elections, studied with a field experiment that
+      randomized the ads within four matched pairs of cities. The analysis tests
+      194,481 hypotheses about the points of turnout the ads produced in each
+      treated city.
+    url: https://static.jakebowers.org/PAPERS/PanagopoulosBowers2012.pdf
   - title: "Intimidation and Resistance: A Case-Study of Race, Crossburnings and Political Behavior in North Carolina"
     description: |
       With Mark Fredrickson and Thomas Engstrom, June 2009. Whether political
