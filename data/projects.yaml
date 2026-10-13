@@ -209,6 +209,10 @@ software:
       urn model for bounded archives. Companion to DrBristol, which implements
       p-value methods for the same class of problems.
     url: https://bowers-illinois-edu.github.io/DrWrinch/
+  - title: riposte (development)
+    description: |
+      Tests that combine several representations of an outcome to detect treatment effects a difference of means misses, in completely randomized, block-randomized, and cluster-randomized experiments. Users can choose direct re-randomization (aka randomization inference aka permutation testing) or, for the unadjusted quadratic and Cauchy tests, an analytic approximation. The name: Randomization Inference for Power via Outcome representationS, Tests, and Estimation.
+    url: https://github.com/bowers-illinois-edu/riposte
   - title: CMRSS (development)
     description: |
       R package for conducting randomization inference for quantiles of
