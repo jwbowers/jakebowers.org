@@ -32,6 +32,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
           publish_branch: gh-pages
+          # Keep the assistant instruction files in the repo but off the
+          # website. .github is the action's default exclusion; keep it.
+          exclude_assets: '.github,CLAUDE.md,AGENTS.md,codex_instructions.md'
           user_name: Automated Deployment
           user_email: actions@users.noreply.github.com
 
