@@ -94,4 +94,4 @@ fi
 
 cp "$CANONICAL_BIB" "$SITE_BIB"
 echo "updated mirror: copied $CANONICAL_BIB -> $SITE_BIB"
-echo "next: re-run the generator to rebuild the (untracked) HTML, then commit data/vita.bib."
+echo "next: re-run the generator, then commit data/vita.bib and any HTML pages it changed (the deploy publishes only tracked files)."
